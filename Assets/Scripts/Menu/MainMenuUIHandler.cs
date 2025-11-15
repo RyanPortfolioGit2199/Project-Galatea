@@ -1,10 +1,14 @@
-using System.Security.Cryptography.X509Certificates;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUIHandler : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] GameObject mainMenu;
+    [SerializeField] GameObject debugMenu;
+
     public void StartNew()
     {
         // SceneManager is the class that handles everything related to loading and unloading scenes
@@ -20,6 +24,8 @@ public class MainMenuUIHandler : MonoBehaviour
     public void DebugMenu()
     {
         Debug.Log("Open Debug Level Picker");
+        mainMenu.SetActive(false);
+        debugMenu.SetActive(true);
     }
 
     public void Exit()
