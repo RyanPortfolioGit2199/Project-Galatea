@@ -1,23 +1,44 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System;
+using UnityEngine.UI;
 
 
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] bool isPaused;
 
-    int mainMenuScene = 0;
-    
+    InputAction pauseAction;
 
-    public void MenuStartUp(InputAction.CallbackContext context)
+    int mainMenuScene = 0;
+    string menuControlName = "MenuStartUp";
+
+
+
+
+    private void Start()
     {
-        
+        pauseAction = InputSystem.actions.FindAction(menuControlName);
     }
+
+    private void Update()
+    {
+        OnPause();
+    }
+
+    
 
     public void OnPause()
     {
-        Time.timeScale = 0;
+        if (pauseAction.WasReleasedThisFrame() && !isPaused)
+        {
+            isPaused = true;
+        }
+        else if (pauseAction.WasReleasedThisFrame() && isPaused)
+        {
+            isPaused = false;
+        }
 
     }
 
