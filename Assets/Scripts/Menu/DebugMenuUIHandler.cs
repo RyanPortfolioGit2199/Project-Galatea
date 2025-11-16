@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DebugMenuUIHandler : MonoBehaviour
 {
@@ -6,9 +7,12 @@ public class DebugMenuUIHandler : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject debugMenu;
 
+    int playerDbLevel = 1;
+
     public void PlayerDBLevel()
     {
         Debug.Log("Load Player Debug Level");
+        SceneManager.LoadScene(playerDbLevel);
     }
 
     public void EnemyDebugLevel()
