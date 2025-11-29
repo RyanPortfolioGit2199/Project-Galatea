@@ -18,20 +18,46 @@ public class DebugManager : MonoBehaviour
 
         mainMenu = FindFirstObjectByType<MainMenuUIHandler>();
 
+       
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        DebugController();
+    }
+
+    private void DebugController()
+    {
         if (debugAction.WasReleasedThisFrame() && !debugEnabled)
         {
             Debug.Log("Open Debug Menu");
             debugEnabled = true;
+            MainMenuConditional();
         }
         else if (debugAction.WasReleasedThisFrame() && debugEnabled)
         {
             Debug.Log("Close Debug Menu");
             debugEnabled = false;
+            MainMenuConditional();
+        }
+    }
+
+
+    void MainMenuConditional()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene.buildIndex != mainMenuLevel) { return; }
+
+        if (!debugEnabled)
+        {
+            mainMenu.gameObject.SetActive(true);
+        }
+        else if (debugEnabled)
+        {
+            mainMenu.gameObject.SetActive(false);
         }
     }
 }
