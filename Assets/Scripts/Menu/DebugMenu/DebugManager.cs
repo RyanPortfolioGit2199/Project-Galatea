@@ -4,21 +4,33 @@ using UnityEngine.InputSystem;
 
 public class DebugManager : MonoBehaviour
 {
+    [SerializeField] GameObject debugMenuUI;
 
     [SerializeField] bool debugEnabled = false;
+    
 
     InputAction debugAction;
     string debugMenu = "DebugMenu";
     int mainMenuLevel = 0;
     MainMenuUIHandler mainMenu;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    
+    public static DebugManager Instance;
+
+    private void Awake()
+    {
+        PersistBetweenScenes();
+
+        
+    }
+
     void Start()
     {
         debugAction = InputSystem.actions.FindAction(debugMenu);
 
         mainMenu = FindFirstObjectByType<MainMenuUIHandler>();
 
-       
+        
 
     }
 
@@ -35,12 +47,14 @@ public class DebugManager : MonoBehaviour
             Debug.Log("Open Debug Menu");
             debugEnabled = true;
             MainMenuConditional();
+            debugMenuUI.gameObject.SetActive(true);
         }
         else if (debugAction.WasReleasedThisFrame() && debugEnabled)
         {
             Debug.Log("Close Debug Menu");
             debugEnabled = false;
             MainMenuConditional();
+            debugMenuUI.gameObject.SetActive(false);
         }
     }
 
@@ -59,5 +73,17 @@ public class DebugManager : MonoBehaviour
         {
             mainMenu.gameObject.SetActive(false);
         }
+    }
+
+    void PersistBetweenScenes()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }
