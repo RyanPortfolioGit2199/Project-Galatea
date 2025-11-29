@@ -9,10 +9,15 @@ public class DebugManager : MonoBehaviour
 
     InputAction debugAction;
     string debugMenu = "DebugMenu";
+    int mainMenuLevel = 0;
+    MainMenuUIHandler mainMenu;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         debugAction = InputSystem.actions.FindAction(debugMenu);
+
+        mainMenu = FindFirstObjectByType<MainMenuUIHandler>();
+
     }
 
     // Update is called once per frame
@@ -26,6 +31,7 @@ public class DebugManager : MonoBehaviour
         else if (debugAction.WasReleasedThisFrame() && debugEnabled)
         {
             Debug.Log("Close Debug Menu");
+            debugEnabled = false;
         }
     }
 }
