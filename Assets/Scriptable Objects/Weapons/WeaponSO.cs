@@ -8,4 +8,5 @@ public class WeaponSO : ScriptableObject
     public bool IsAutomatic = false;
     public bool CanCharge = false;
     public GameObject HitVFX;
+    public float FireRate;
 }

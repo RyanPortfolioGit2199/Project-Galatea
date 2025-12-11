@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 327408274976707419, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_Name
-      value: Base Gun
+      value: Starter Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 6587454914291426311, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6587454914291426311, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 6587454914291426311, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51,6 +51,30 @@ PrefabInstance:
     - target: {fileID: 6587454914291426311, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369692551370647049, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ae4d551a6d3ea524c8b27c9354758bbb, type: 2}
+    - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12783
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.12821475
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

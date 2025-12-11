@@ -12,6 +12,12 @@ public class Gun : MonoBehaviour
 
     public void Shoot (WeaponSO weaponSO)
     {
-        
+        RaycastHit gunHit;
+
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out gunHit, Mathf.Infinity))
+        {
+            Debug.Log(gunHit.collider.name);
+            Debug.DrawRay(this.transform.position, this.transform.forward);
+        }
     }
 }

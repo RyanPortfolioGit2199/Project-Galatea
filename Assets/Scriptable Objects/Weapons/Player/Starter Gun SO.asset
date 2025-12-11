@@ -17,3 +17,4 @@ MonoBehaviour:
   IsAutomatic: 0
   CanCharge: 0
   HitVFX: {fileID: 0}
+  FireRate: 0.5
