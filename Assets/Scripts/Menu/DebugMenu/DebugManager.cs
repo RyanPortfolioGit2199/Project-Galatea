@@ -20,8 +20,6 @@ public class DebugManager : MonoBehaviour
     private void Awake()
     {
         PersistBetweenScenes();
-
-        
     }
 
     void Start()
