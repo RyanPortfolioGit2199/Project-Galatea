@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,21 +12,32 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Debug Visualization (Don't Change!)")]
     [SerializeField] Vector2 moveValue;
     InputAction moveAction;
+
+    Scene currentScene;
+    int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene();
+
         moveAction = InputSystem.actions.FindAction("Move");
     }
 
     // Update is called once per frame
     void Update()
     {
-        MouseLook();
-        PlayerMovement();
+        
+        
+            MouseLook();
+            PlayerMovement();
+        
+        
     }
 
     private void MouseLook()
     {
+        if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player can move in the Upgrade menu.
+
         //see if I can make this calculate first using FixedUpdate causing glitches when moving mouse position rotating isnt tracking properly when player is moving.
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -43,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
+        if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player can move in the Upgrade menu.
+
         moveValue = moveAction.ReadValue<Vector2>();
 
 
