@@ -20,7 +20,8 @@ public class GunUpgradeMenu : MonoBehaviour
 
     public void BackToUpgradeMenu()
     {
-        upgradeMenu.SetActive(true);
         this.gameObject.SetActive(false);
+        upgradeMenu.SetActive(true);
+        
     }
 }

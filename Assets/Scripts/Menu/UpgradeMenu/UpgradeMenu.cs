@@ -7,8 +7,8 @@ public class UpgradeMenu : MonoBehaviour
 
     public void GunUpgrades()
     {
-        gunMenu.SetActive(true);
         this.gameObject.SetActive(false);
+        gunMenu.SetActive(true);
     }
 
     public void ShieldUpgrades()

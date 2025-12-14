@@ -547,7 +547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &196339999
 RectTransform:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7cfcad18a1c6e4abfdf230b55f0865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeMenu: {fileID: 1203757988}
+  upgradeMenu: {fileID: 237107787}
 --- !u!1 &237107787
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82dea06ca9e3bea43a02386cdd73ab07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunMenu: {fileID: 406082296}
+  gunMenu: {fileID: 196339998}
 --- !u!1 &272701458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,7 +1346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &406082297
 Transform:
   m_ObjectHideFlags: 0

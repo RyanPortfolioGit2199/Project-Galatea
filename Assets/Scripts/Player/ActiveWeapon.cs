@@ -22,6 +22,12 @@ public class ActiveWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleShoot();
+    }
+
+
+    void HandleShoot()
+    {
         timeSinceLastShot += Time.deltaTime;
 
         if(!shootAction.IsPressed()) return;
