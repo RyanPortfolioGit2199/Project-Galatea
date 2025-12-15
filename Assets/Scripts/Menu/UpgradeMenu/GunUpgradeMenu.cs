@@ -3,9 +3,17 @@ using UnityEngine;
 public class GunUpgradeMenu : MonoBehaviour
 {
     [SerializeField] GameObject upgradeMenu;
+    [SerializeField] WeaponSO[] weaponSO;
+    ActiveWeapon activeWeapon;
+
+    void Awake()
+    {
+        activeWeapon = FindAnyObjectByType<ActiveWeapon>();
+    }
     public void GunUpgrade1()
     {
         Debug.Log("Gun Upgrade 1");
+        activeWeapon.SwitchWeapon(weaponSO[0]);
     }
 
     public void GunUpgrade2()

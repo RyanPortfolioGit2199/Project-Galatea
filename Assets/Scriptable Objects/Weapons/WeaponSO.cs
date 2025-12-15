@@ -9,4 +9,5 @@ public class WeaponSO : ScriptableObject
     public bool CanCharge = false;
     public GameObject HitVFX;
     public float FireRate;
+    public GameObject GunPrefab;
 }

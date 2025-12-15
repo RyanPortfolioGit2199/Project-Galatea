@@ -18,3 +18,4 @@ MonoBehaviour:
   CanCharge: 0
   HitVFX: {fileID: 0}
   FireRate: 0.5
+  GunPrefab: {fileID: 1085578376819670403, guid: 9ebfc5d98154d614380b95aabc171b41, type: 3}
