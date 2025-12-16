@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class UpgradeMenu : MonoBehaviour
 {
-    public GameObject gunMenu;
+    [SerializeField] GameObject gunMenu;
+    [SerializeField] GameObject shieldMenu;
+    [SerializeField] GameObject thrusterMenu;
 
 
     public void GunUpgrades()
@@ -13,11 +15,13 @@ public class UpgradeMenu : MonoBehaviour
 
     public void ShieldUpgrades()
     {
-        Debug.Log("Open Shield Upgrade Menu");
+        this.gameObject.SetActive(false);
+        shieldMenu.SetActive(true);
     }
 
     public void ThrusterUpgrades()
     {
-        Debug.Log("Open Thruster Upgrade Menu");
+        this.gameObject.SetActive(false);
+        thrusterMenu.SetActive(true);
     }
 }
