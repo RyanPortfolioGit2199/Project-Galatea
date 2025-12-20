@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class ActiveThruster : MonoBehaviour
 {
     [SerializeField] ThrusterSO thrusterSO;
-
+    public bool canDodge = true;
     Thruster currentThruster;
     
 
@@ -18,23 +18,45 @@ public class ActiveThruster : MonoBehaviour
         dodgeAction = InputSystem.actions.FindAction("Dodge");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        CanDodge();
+    }
 
+    // Update is called once per frame
+    void LateUpdate()
+    {
+        
+        HandleDodge();
 
     }
 
-    private void HandleDodge()
+    private bool CanDodge()
     {
         timeSinceLastDodge += Time.deltaTime;
 
         if (timeSinceLastDodge >= thrusterSO.DodgeRechargeRate)
         {
-            currentThruster.Dodge(thrusterSO);
+            canDodge = true;
+            Debug.Log("Dodge is available");
         }
-        timeSinceLastDodge = 0f;
+        return canDodge;
+    }
+
+    private void HandleDodge()
+    {
+        
+
+        if(!dodgeAction.IsPressed()) {return;}
+
+        if (canDodge)
+        {
+            Debug.Log("Dodge");
+            currentThruster.Dodge(thrusterSO);
+            timeSinceLastDodge = 0f;
+            canDodge = false;
+        }
+        
     }
 
     public void SwitchThruster(ThrusterSO thrusterSO)

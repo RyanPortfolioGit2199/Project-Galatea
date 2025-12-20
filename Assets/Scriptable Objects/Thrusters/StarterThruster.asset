@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e986c6caec561c448196a290fa66f1c, type: 3}
   m_Name: StarterThruster
   m_EditorClassIdentifier: 
-  ThrusterSpeed: 0
-  DodgeRechargeRate: 0
+  ThrusterSpeed: 5
+  DodgeRechargeRate: 15
   ThrusterPrefab: {fileID: 6628454227580090289, guid: b03ed99ffbb929e468456516978538af, type: 3}
+  dodgeAmount: 1000

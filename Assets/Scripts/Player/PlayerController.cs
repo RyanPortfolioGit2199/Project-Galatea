@@ -1,4 +1,5 @@
 
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Will need to change moveSpeed variable later on to incorperate the calculation from the thruster upgrades to affect player speed when player upgrades are implemented")]
 
     [Header("Movement Debug Visualization (Don't Change!)")]
-    
+    public Vector3 moveDirection;
     InputAction moveAction;
     Rigidbody playerRb;
     Scene currentScene;
@@ -65,10 +66,10 @@ public class PlayerController : MonoBehaviour
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player can move in the Upgrade menu.
 
-        Vector3 moveValue = new Vector3(moveAction.ReadValue<Vector2>().x, 0, moveAction.ReadValue<Vector2>().y);
+        moveDirection = new Vector3(moveAction.ReadValue<Vector2>().x, 0, moveAction.ReadValue<Vector2>().y);    
 
-
-        playerRb.MovePosition(transform.position + moveValue * Time.fixedDeltaTime * moveSpeed);
+        
+        playerRb.MovePosition(transform.position + moveDirection * (Time.fixedDeltaTime * moveSpeed));
         
 
         /*

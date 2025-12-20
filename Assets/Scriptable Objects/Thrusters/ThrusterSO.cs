@@ -6,4 +6,5 @@ public class ThrusterSO : ScriptableObject
     public int ThrusterSpeed;
     public float DodgeRechargeRate;
     public GameObject ThrusterPrefab;
+    public int dodgeAmount;
 }
