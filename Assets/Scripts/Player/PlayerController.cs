@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,12 +11,18 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Will need to change moveSpeed variable later on to incorperate the calculation from the thruster upgrades to affect player speed when player upgrades are implemented")]
 
     [Header("Movement Debug Visualization (Don't Change!)")]
-    [SerializeField] Vector2 moveValue;
+    
     InputAction moveAction;
-
+    Rigidbody playerRb;
     Scene currentScene;
     int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    void Awake()
+    {
+        playerRb = GetComponent<Rigidbody>();
+    }
+
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -25,13 +32,14 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {              
+        MouseLook();
+                
+    }
+
+    void FixedUpdate()
     {
-        
-        
-            MouseLook();
-            PlayerMovement();
-        
-        
+        PlayerMovement();
     }
 
     private void MouseLook()
@@ -57,12 +65,11 @@ public class PlayerController : MonoBehaviour
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player can move in the Upgrade menu.
 
-        moveValue = moveAction.ReadValue<Vector2>();
+        Vector3 moveValue = new Vector3(moveAction.ReadValue<Vector2>().x, 0, moveAction.ReadValue<Vector2>().y);
 
 
-
-        transform.Translate(Vector3.forward * moveValue.y * moveSpeed * Time.deltaTime, Space.World);
-        transform.Translate(Vector3.right * moveValue.x * moveSpeed * Time.deltaTime, Space.World);
+        playerRb.MovePosition(transform.position + moveValue * Time.fixedDeltaTime * moveSpeed);
+        
 
         /*
          * // need to fix the movement when moving left and right for it to not rotate around the mouse position I just want to strafe left and right.
