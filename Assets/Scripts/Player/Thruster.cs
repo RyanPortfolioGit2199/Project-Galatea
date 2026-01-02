@@ -1,17 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class Thruster : MonoBehaviour
 {
     PlayerController playerController;
 
-    Rigidbody playerRb;
+    CharacterController characterController;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerRb = GetComponentInParent<Rigidbody>();
+        
         playerController = GetComponentInParent<PlayerController>();
+        characterController = GetComponentInParent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -20,25 +23,13 @@ public class Thruster : MonoBehaviour
         
     }
 
-    public void Dodge(ThrusterSO thrusterSO)
-    {
-        
-        if(playerController.moveDirection.x > 0 || playerController.moveDirection.x < 0 )
-        {
-            playerRb.linearVelocity = transform.right * playerController.moveDirection.x * thrusterSO.dodgeAmount * Time.fixedDeltaTime;
-        }
-        else if (playerController.moveDirection.z > 0 || playerController.moveDirection.z < 0)
-        {
-            playerRb.linearVelocity = transform.forward * playerController.moveDirection.z * thrusterSO.dodgeAmount * Time.fixedDeltaTime;
-        }
-        
-        
-        StartCoroutine(DodgeDuration());
-    }
+ 
 
-    IEnumerator DodgeDuration()
+    public IEnumerator DodgeDuration(ThrusterSO thrusterSO)
     {
-        yield return new WaitForSeconds(.5f);
-        playerRb.linearVelocity = Vector3.zero;
+        
+        
+        yield return new WaitForSeconds(5f);
+        characterController.Move(playerController.moveDirection * thrusterSO.dodgeAmount * Time.deltaTime);
     }
 }

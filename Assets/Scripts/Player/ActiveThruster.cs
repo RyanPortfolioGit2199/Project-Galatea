@@ -24,7 +24,7 @@ public class ActiveThruster : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         
         HandleDodge();
@@ -52,7 +52,7 @@ public class ActiveThruster : MonoBehaviour
         if (canDodge)
         {
             Debug.Log("Dodge");
-            currentThruster.Dodge(thrusterSO);
+            StartCoroutine(currentThruster.DodgeDuration(thrusterSO));
             timeSinceLastDodge = 0f;
             canDodge = false;
         }

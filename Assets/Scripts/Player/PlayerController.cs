@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Debug Visualization (Don't Change!)")]
     public Vector3 moveDirection;
     InputAction moveAction;
-    Rigidbody playerRb;
+    CharacterController playerController;
     Scene currentScene;
     int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
     {
-        playerRb = GetComponent<Rigidbody>();
+        playerController = GetComponent<CharacterController>();
     }
 
     void Start()
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         PlayerMovement();
+        MouseLook();
     }
 
     private void MouseLook()
@@ -67,9 +68,10 @@ public class PlayerController : MonoBehaviour
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player can move in the Upgrade menu.
 
         moveDirection = new Vector3(moveAction.ReadValue<Vector2>().x, 0, moveAction.ReadValue<Vector2>().y);    
-
         
-        playerRb.MovePosition(transform.position + moveDirection * (Time.fixedDeltaTime * moveSpeed));
+        Vector3 moveValue = moveDirection * moveSpeed;
+        
+        playerController.Move(moveValue * Time.deltaTime);
         
 
         /*
@@ -77,4 +79,7 @@ public class PlayerController : MonoBehaviour
          * Fix is using Space.World to make the Player move along the World's X-axis instead of the player's X-axis to stop rotating around of the mouse position.
         */
     }
+
+
+    
 }
