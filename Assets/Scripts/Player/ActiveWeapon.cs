@@ -12,6 +12,8 @@ public class ActiveWeapon : MonoBehaviour
 
     InputAction shootAction;
 
+    public bool isFiring = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,18 +24,19 @@ public class ActiveWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         HandleShoot();
     }
-
 
     void HandleShoot()
     {
         timeSinceLastShot += Time.deltaTime;
 
-        if(!shootAction.IsPressed()) return;
+        if(!shootAction.IsPressed()) {isFiring = false; return;}
 
         if(timeSinceLastShot >= weaponSO.FireRate)
         {
+            isFiring = true;
             currentGun.Shoot(weaponSO);
         }
     }

@@ -39,7 +39,7 @@
                     "id": "e4515671-7d48-416d-9a42-e4e5f98518e4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
@@ -143,20 +143,9 @@
                 },
                 {
                     "name": "",
-                    "id": "1bd279f9-1190-4b59-962f-8d89e25d7c69",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4d42f939-0726-4947-b8ac-7fdb407b0741",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",

@@ -5,9 +5,13 @@ public class Gun : MonoBehaviour
 {
     Scene currentScene;
     int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
+    [SerializeField] GameObject gunBullets;
+    ActiveWeapon activeWeapon;
+
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+        activeWeapon = GetComponentInParent<ActiveWeapon>();
     }
 
     // Update is called once per frame
@@ -19,12 +23,9 @@ public class Gun : MonoBehaviour
     public void Shoot (WeaponSO weaponSO)
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player cant shoot in the Upgrade menu.
-        RaycastHit gunHit;
-
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out gunHit, Mathf.Infinity))
-        {
-            Debug.Log(gunHit.collider.name);
-            Debug.DrawRay(this.transform.position, this.transform.forward);
-        }
+        
+        
+        var emissionModule = gunBullets.GetComponent<ParticleSystem>().emission;
+        emissionModule.enabled = activeWeapon.isFiring;
     }
 }
