@@ -15,4 +15,4 @@ MonoBehaviour:
   ThrusterSpeed: 5
   DodgeRechargeRate: 15
   ThrusterPrefab: {fileID: 6628454227580090289, guid: b03ed99ffbb929e468456516978538af, type: 3}
-  dodgeAmount: 300
+  dodgeAmount: 100

@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 
 
 public class Thruster : MonoBehaviour
@@ -8,6 +8,8 @@ public class Thruster : MonoBehaviour
     PlayerController playerController;
 
     CharacterController characterController;
+
+    [SerializeField] float dodgeDurationAmount;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,9 +29,14 @@ public class Thruster : MonoBehaviour
 
     public IEnumerator DodgeDuration(ThrusterSO thrusterSO)
     {
-        
-        
-        yield return new WaitForSeconds(5f);
-        characterController.Move(playerController.moveDirection * thrusterSO.dodgeAmount * Time.deltaTime);
+        float time = 0;
+        while(time < dodgeDurationAmount)
+        {
+            characterController.Move(playerController.moveDirection * thrusterSO.dodgeAmount * Time.deltaTime);
+            time += Time.deltaTime;
+            
+            yield return null;
+        }
+             
     }
 }
