@@ -32,11 +32,11 @@ public class ActiveWeapon : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
 
-        if(!shootAction.IsPressed()) {isFiring = false; return;}
+        if(!shootAction.IsPressed())  return;
 
         if(timeSinceLastShot >= weaponSO.FireRate)
         {
-            isFiring = true;
+            
             currentGun.Shoot(weaponSO);
         }
     }
