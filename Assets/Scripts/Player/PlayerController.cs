@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Debug Visualization (Don't Change!)")]
     public Vector3 moveDirection;
-    InputAction moveAction;
+    
+    PlayerInputScript playerInputScript;
+    PlayerInput playerInput;
     CharacterController playerController;
     Scene currentScene;
     int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
@@ -22,13 +24,15 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         playerController = GetComponent<CharacterController>();
+        playerInputScript = GetComponent<PlayerInputScript>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
 
-        moveAction = InputSystem.actions.FindAction("Move");
+        
     }
 
     // Update is called once per frame
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player can move in the Upgrade menu.
 
-        moveDirection = new Vector3(moveAction.ReadValue<Vector2>().x, 0, moveAction.ReadValue<Vector2>().y);    
+        moveDirection = new Vector3(playerInputScript.move.x, 0, playerInputScript.move.y);    
         
         Vector3 moveValue = moveDirection * moveSpeed;
         

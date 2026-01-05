@@ -16,23 +16,16 @@ public class PauseManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
 
 
-
-    InputAction pauseAction;
-
+    PlayerInputScript playerInputScript;
     int mainMenuScene = 0;
     string menuControlName = "MenuStartUp";
 
 
 
 
-    private void Awake()
-    {
-        
-        
-
-        pauseAction = InputSystem.actions.FindAction(menuControlName);
-
-        
+    private void Start()
+    {   
+        playerInputScript = FindAnyObjectByType<PlayerInputScript>();
     }
 
     
@@ -48,19 +41,20 @@ public class PauseManager : MonoBehaviour
     {
         
 
-
-        if (pauseAction.WasReleasedThisFrame() && !isPaused )
+        
+        if (playerInputScript.pause && !isPaused )
         {
             isPaused = true;
             Time.timeScale = 0;
             pauseMenu.SetActive(false);
         }
-        else if (pauseAction.WasReleasedThisFrame() && isPaused)
+        else if (playerInputScript.pause  && isPaused)
         {
             isPaused = false;
             Time.timeScale = 1;
             pauseMenu.SetActive(true);
         }
+    
 
     }
 

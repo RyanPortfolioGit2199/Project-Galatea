@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player cant shoot in the Upgrade menu.
         
-
+        
         bulletParticle.Emit(1);
         
         

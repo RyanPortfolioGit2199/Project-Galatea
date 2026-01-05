@@ -6,11 +6,13 @@ public class ActiveWeapon : MonoBehaviour
     Gun currentGun;
     float timeSinceLastShot = 0f;
 
+    PlayerInputScript playerInputScript;
+
 
     [Header("References")]
     [SerializeField] WeaponSO weaponSO;
 
-    InputAction shootAction;
+    
 
     public bool isFiring = false;
 
@@ -18,7 +20,7 @@ public class ActiveWeapon : MonoBehaviour
     void Start()
     {
         currentGun = GetComponentInChildren<Gun>();
-        shootAction = InputSystem.actions.FindAction("Shoot");
+        playerInputScript = GetComponentInParent<PlayerInputScript>();
     }
 
     // Update is called once per frame
@@ -32,13 +34,15 @@ public class ActiveWeapon : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
 
-        if(!shootAction.IsPressed())  return;
+        if(!playerInputScript.shoot)  return;
 
         if(timeSinceLastShot >= weaponSO.FireRate)
         {
             
             currentGun.Shoot(weaponSO);
+            timeSinceLastShot = 0f;
         }
+
     }
 
     public void SwitchWeapon(WeaponSO weaponSO)

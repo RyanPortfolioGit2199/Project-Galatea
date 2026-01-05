@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class DebugManager : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public class DebugManager : MonoBehaviour
 
     [SerializeField] bool debugEnabled = false;
     
-
-    InputAction debugAction;
+    PlayerInputScript playerInputScript;
+    PlayerInput playerInput;
+    
     string debugMenu = "DebugMenu";
     int mainMenuLevel = 0;
     MainMenuUIHandler mainMenu;
@@ -24,10 +26,11 @@ public class DebugManager : MonoBehaviour
 
     void Start()
     {
-        debugAction = InputSystem.actions.FindAction(debugMenu);
-
+        
+        playerInputScript = FindAnyObjectByType<PlayerInputScript>();
         mainMenu = FindFirstObjectByType<MainMenuUIHandler>();
-
+        
+        DebugController();
         
 
     }
@@ -40,20 +43,31 @@ public class DebugManager : MonoBehaviour
 
     private void DebugController()
     {
-        if (debugAction.WasReleasedThisFrame() && !debugEnabled)
+        
+        
+
+        if (playerInputScript.debugMenu && !debugEnabled)
         {
+            
             Debug.Log("Open Debug Menu");
-            debugEnabled = true;
+            
             MainMenuConditional();
-            debugMenuUI.gameObject.SetActive(true);
+            debugMenuUI.SetActive(true);
+            
+            
         }
-        else if (debugAction.WasReleasedThisFrame() && debugEnabled)
+
+        StartCoroutine(ButtonPressDelay());
+    
+        if (playerInputScript.debugMenu && debugEnabled)
         {
             Debug.Log("Close Debug Menu");
-            debugEnabled = false;
             MainMenuConditional();
             debugMenuUI.gameObject.SetActive(false);
+            debugEnabled = false;
         }
+
+        
     }
 
 
@@ -83,5 +97,11 @@ public class DebugManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    IEnumerator ButtonPressDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        debugEnabled = true;
     }
 }

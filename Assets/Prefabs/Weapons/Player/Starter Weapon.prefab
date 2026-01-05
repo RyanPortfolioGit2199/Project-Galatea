@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: InitialModule.startSpeed.scalar
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 8563514728809022191, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].repeatInterval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.12783
