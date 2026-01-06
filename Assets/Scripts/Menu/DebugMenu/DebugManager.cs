@@ -15,6 +15,9 @@ public class DebugManager : MonoBehaviour
     string debugMenu = "DebugMenu";
     int mainMenuLevel = 0;
     MainMenuUIHandler mainMenu;
+
+    float buttonPressTimer = 2f;
+    float buttonPressDelay = 2f;
     
     
     public static DebugManager Instance;
@@ -43,28 +46,30 @@ public class DebugManager : MonoBehaviour
 
     private void DebugController()
     {
-        
-        
+        buttonPressTimer += Time.deltaTime;
 
-        if (playerInputScript.debugMenu && !debugEnabled)
+        if(!playerInputScript.debugMenu) {return;}
+
+        if (buttonPressTimer >= buttonPressDelay && !debugEnabled)
         {
             
             Debug.Log("Open Debug Menu");
             
             MainMenuConditional();
             debugMenuUI.SetActive(true);
-            
-            
+            debugEnabled = true;
+            buttonPressTimer = 0f;
         }
 
-        StartCoroutine(ButtonPressDelay());
+       
     
-        if (playerInputScript.debugMenu && debugEnabled)
+        if (buttonPressTimer > buttonPressDelay && debugEnabled)
         {
             Debug.Log("Close Debug Menu");
             MainMenuConditional();
             debugMenuUI.gameObject.SetActive(false);
             debugEnabled = false;
+            buttonPressTimer = 0f;
         }
 
         
@@ -99,9 +104,5 @@ public class DebugManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    IEnumerator ButtonPressDelay()
-    {
-        yield return new WaitForSeconds(3f);
-        debugEnabled = true;
-    }
+    
 }

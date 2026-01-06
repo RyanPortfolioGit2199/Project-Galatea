@@ -18,8 +18,10 @@ public class PauseManager : MonoBehaviour
 
     PlayerInputScript playerInputScript;
     int mainMenuScene = 0;
-    string menuControlName = "MenuStartUp";
+    
 
+    float buttonPressTimer = 1f;
+    float buttonPressDelay = 1f;
 
 
 
@@ -39,20 +41,26 @@ public class PauseManager : MonoBehaviour
 
     public void OnPause()
     {
-        
+        buttonPressTimer += Time.unscaledDeltaTime; // if I used .deltaTime it wouldnt run since the Time Scale is being set to 0
 
+        if (!playerInputScript.pause) {return;}
         
-        if (playerInputScript.pause && !isPaused )
+        if ( buttonPressTimer >= buttonPressDelay && !isPaused)
         {
-            isPaused = true;
+            
             Time.timeScale = 0;
-            pauseMenu.SetActive(false);
-        }
-        else if (playerInputScript.pause  && isPaused)
-        {
-            isPaused = false;
-            Time.timeScale = 1;
             pauseMenu.SetActive(true);
+            buttonPressTimer = 0; 
+            isPaused = true;
+        }
+
+        if (buttonPressTimer >= buttonPressDelay && isPaused)
+        {
+            
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+            buttonPressTimer = 0; 
+            isPaused = false;
         }
     
 

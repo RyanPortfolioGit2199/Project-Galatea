@@ -21,7 +21,7 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (context.started)
         {
-            debugMenu = false;
+            //debugMenu = false;
         }
         else if (context.performed)
         {
@@ -46,7 +46,20 @@ public class PlayerInputScript : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        pause = context.ReadValueAsButton();
+        if (context.started)
+        {
+            pause = false;
+        }
+        else if (context.performed)
+        {
+            pause = context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            pause = false;
+        }
+        
+        
     }
 
 
