@@ -19,19 +19,16 @@ public class PlayerInputScript : MonoBehaviour
 
     public void OnDebugMenu(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            //debugMenu = false;
-        }
-        else if (context.performed)
+ 
+        if (context.performed)
         {
             debugMenu = context.ReadValueAsButton();
             Debug.Log("Debug Button Pressed");
-        }
-        else if (context.canceled)
+        }else if (context.canceled)
         {
             debugMenu = false;
         }
+       
     }
 
     public void OnShoot(InputAction.CallbackContext context)

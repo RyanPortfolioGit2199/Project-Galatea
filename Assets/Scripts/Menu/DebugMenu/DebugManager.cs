@@ -63,7 +63,7 @@ public class DebugManager : MonoBehaviour
 
        
     
-        if (buttonPressTimer > buttonPressDelay && debugEnabled)
+        if (buttonPressTimer >= buttonPressDelay && debugEnabled)
         {
             Debug.Log("Close Debug Menu");
             MainMenuConditional();
