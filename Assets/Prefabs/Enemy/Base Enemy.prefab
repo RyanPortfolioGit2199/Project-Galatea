@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.919
       objectReference: {fileID: 0}
+    - target: {fileID: 3483587197577264517, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: enemySO
+      value: 
+      objectReference: {fileID: 11400000, guid: efadba88615fe984ab3ddf2c057140b1, type: 2}
     - target: {fileID: 5058571621468157260, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_Name
       value: Base Enemy
