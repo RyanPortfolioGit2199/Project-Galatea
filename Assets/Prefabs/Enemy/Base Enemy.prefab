@@ -20,6 +20,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 141493040573816035, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 308960666881619282, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2929586456161103890, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -36,21 +44,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5058571621468157260, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410514005643872092, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965111944801733621, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0072345734
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 14.318884
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalRotation.x
@@ -58,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalRotation.z
@@ -70,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -80,5 +100,35 @@ PrefabInstance:
     - {fileID: 9171515472891954598, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5058571621468157260, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4271150741334122563}
   m_SourcePrefab: {fileID: 100100000, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+--- !u!1 &323589541314952006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5058571621468157260, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+  m_PrefabInstance: {fileID: 4777816657888333322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &4271150741334122563
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323589541314952006}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.03
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1.13
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
