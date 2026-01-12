@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87ae08ee4d19fe41997653531468f2f, type: 3}
   m_Name: BaseEnemySO
   m_EditorClassIdentifier: 
-  distanceFromPlayer: 10
-  attackRange: 5
+  distanceFromPlayer: 2
+  attackRange: 1
