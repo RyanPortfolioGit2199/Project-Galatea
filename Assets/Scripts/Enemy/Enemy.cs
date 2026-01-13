@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private bool withinAttackRange;
     private float attackTimer;
     private float changeMind;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +25,8 @@ public class Enemy : MonoBehaviour
         playerIsNear = false;
         withinAttackRange = false;
         brain.PushState(Idle, OnIdleEnter, OnIdleExit);
+
+        
     }
 
     // Update is called once per frame
@@ -90,15 +93,23 @@ public class Enemy : MonoBehaviour
     {
         stateNote.text = "Patrol";
 
-        Vector3 wanderDistance = (Random.insideUnitSphere * 4f) + transform.position;
+        Vector3 wanderDistance = (Random.insideUnitSphere * 10f) + transform.position;
+        wanderDistance.y = 0f;
+        Debug.Log(wanderDistance);
+
         NavMeshHit navMeshHit;
+        
 
+        
 
-        NavMesh.SamplePosition(wanderDistance, out navMeshHit, 1f, NavMesh.AllAreas);
+        NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 <<NavMesh.GetAreaFromName("G1")); // delete the 3 later and replace with custom area method value later.
 
         Vector3 destination = navMeshHit.position;
 
         Debug.Log(destination);
+
+        Debug.DrawLine(destination, transform.position, Color.red, 5f);
+
 
         agent.SetDestination(destination);
     }
