@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: enemySO
       value: 
       objectReference: {fileID: 11400000, guid: efadba88615fe984ab3ddf2c057140b1, type: 2}
+    - target: {fileID: 3483587197577264517, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: stateNote
+      value: 
+      objectReference: {fileID: 6658391000537342056}
     - target: {fileID: 5058571621468157260, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_Name
       value: Base Enemy
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.z
@@ -136,3 +140,14 @@ NavMeshAgent:
   m_BaseOffset: 1.13
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6658391000537342056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2173388940509146722, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+  m_PrefabInstance: {fileID: 4777816657888333322}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

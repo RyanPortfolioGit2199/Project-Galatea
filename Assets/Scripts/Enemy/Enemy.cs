@@ -1,3 +1,4 @@
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,10 +10,13 @@ public class Enemy : MonoBehaviour
     private StateMachine brain;
     private NavMeshAgent agent;
     private PlayerController player;
-    private bool playerIsNear;
+    [SerializeField] bool playerIsNear;
+    [SerializeField] float Radius = 10f;
     private bool withinAttackRange;
     private float attackTimer;
     private float changeMind;
+
+    private Vector3 destination;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +40,19 @@ public class Enemy : MonoBehaviour
         withinAttackRange = Vector3.Distance(this.transform.position, player.transform.position) < enemySO.attackRange;
     }
 
-    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, Radius);
+    }
+
+    private void AimAtPlayer()
+    {
+        Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
+    }
+
+
     void OnIdleEnter()
     {
         agent.ResetPath();
@@ -74,14 +90,17 @@ public class Enemy : MonoBehaviour
     void Chase()
     {
         agent.SetDestination(player.transform.position);
-        if(Vector3.Distance(this.transform.position, player.transform.position) > 5.5f)
+        
+        if(Vector3.Distance(this.transform.position, player.transform.position) > 45.5f)
         {
             brain.PushState(Idle, OnIdleEnter, OnIdleExit);
         }
+        
         if (withinAttackRange)
         {
             brain.PushState(Attack, OnAttackEnter, null);
         }
+        
     }
 
     void OnChaseExit()
@@ -93,7 +112,7 @@ public class Enemy : MonoBehaviour
     {
         stateNote.text = "Patrol";
 
-        Vector3 wanderDistance = (Random.insideUnitSphere * 10f) + transform.position;
+        Vector3 wanderDistance = (Random.insideUnitSphere * Radius) + transform.position;
         wanderDistance.y = 0f;
         Debug.Log(wanderDistance);
 
@@ -102,9 +121,12 @@ public class Enemy : MonoBehaviour
 
         
 
-        NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 <<NavMesh.GetAreaFromName("G1")); // delete the 3 later and replace with custom area method value later.
+        if(NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 << NavMesh.GetAreaFromName("G1")))// delete the 3 later and replace with custom area method value later.
 
-        Vector3 destination = navMeshHit.position;
+        {
+            destination = navMeshHit.position;
+        } 
+        
 
         Debug.Log(destination);
 
@@ -141,6 +163,7 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         attackTimer -= Time.deltaTime;
+        AimAtPlayer();
         if (!withinAttackRange)
         {
             brain.PopState();
@@ -151,6 +174,7 @@ public class Enemy : MonoBehaviour
             attackTimer = enemySO.fireRate;
         }
     }
+
 
 
 

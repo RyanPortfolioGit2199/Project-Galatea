@@ -66,5 +66,7 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Project-Galatea.slnx"
+    "dotnet.defaultSolution": "Project-Galatea.slnx",
+    "editor.autoIndentOnPasteWithinString": false,
+    "editor.acceptSuggestionOnEnter": "off"
 }
