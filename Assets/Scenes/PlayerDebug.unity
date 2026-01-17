@@ -8104,6 +8104,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2214785677487312856, guid: 6c73d9be86b44b540bf692942da8cada, type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2385093026879773241, guid: 6c73d9be86b44b540bf692942da8cada, type: 3}
       propertyPath: m_Layer
       value: 7
