@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] EnemySO enemySO;
     [SerializeField] TextMeshProUGUI stateNote;
+    [SerializeField] EnemyType currentEnemyType;
     private StateMachine brain;
     private NavMeshAgent agent;
     private PlayerController player;
@@ -45,6 +46,12 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, Radius);
     }
+
+    public enum EnemyType
+    {
+        Grunt, 
+        Brute
+    };
 
     private void AimAtPlayer()
     {
