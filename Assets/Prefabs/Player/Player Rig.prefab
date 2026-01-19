@@ -512,7 +512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769568414569115739, guid: b03ed99ffbb929e468456516978538af, type: 3}
       propertyPath: dodgeDurationAmount
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
