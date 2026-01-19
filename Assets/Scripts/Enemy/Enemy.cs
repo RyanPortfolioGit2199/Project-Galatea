@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
     {
         Grunt, 
         Brute
-    };
+    }
 
     private void AimAtPlayer()
     {
