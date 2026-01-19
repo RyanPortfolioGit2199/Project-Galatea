@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BaseEnemySO
   m_EditorClassIdentifier: 
   distanceFromPlayer: 40
-  attackRange: 25
+  attackRange: 30
   fireRate: 0
