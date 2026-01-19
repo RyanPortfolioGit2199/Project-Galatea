@@ -6,4 +6,5 @@ public class EnemySO : ScriptableObject
     public int distanceFromPlayer;
     public int attackRange;
     public float fireRate;
+    
 }
