@@ -60,6 +60,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: angle
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: distance
+      value: 29.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: meshColor.a
+      value: 0.34117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: showAISensor
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5965111944801733621, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -70,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 3.77
       objectReference: {fileID: 0}
     - target: {fileID: 6377294183603908487, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_LocalPosition.z
@@ -131,7 +147,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 323589541314952006}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.03
+  m_Radius: 2
   m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
@@ -160,6 +176,7 @@ MonoBehaviour:
   stateNote: {fileID: 6658391000537342056}
   playerIsNear: 0
   Radius: 10
+  drawPositionSphere: 0
 --- !u!114 &6658391000537342056 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2173388940509146722, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}

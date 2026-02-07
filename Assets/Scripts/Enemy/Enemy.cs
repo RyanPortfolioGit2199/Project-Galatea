@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public static Enemy Instance;
+
     [SerializeField] protected EnemySO enemySO;
     [SerializeField] protected TextMeshProUGUI stateNote;
     
@@ -13,18 +15,24 @@ public abstract class Enemy : MonoBehaviour
     protected PlayerController player;
     [SerializeField] protected bool playerIsNear;
     [SerializeField] protected float Radius = 10f;
+    [SerializeField] bool drawPositionSphere;
     protected bool withinAttackRange;
     protected float attackTimer;
     protected float changeMind;
+    protected AISensor sensor;
+
+    
 
     protected Vector3 destination;
-    
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         brain = GetComponent<StateMachine>();
         agent = GetComponent<NavMeshAgent>();
+        sensor = GetComponent<AISensor>();
         player = FindAnyObjectByType<PlayerController>();
 
         playerIsNear = false;
@@ -37,14 +45,17 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        playerIsNear = Vector3.Distance(this.transform.position, player.transform.position) < enemySO.distanceFromPlayer;
+        Avoidance();
         withinAttackRange = Vector3.Distance(this.transform.position, player.transform.position) < enemySO.attackRange;
     }
 
-    protected virtual void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Radius);
+        if (drawPositionSphere)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, Radius);
+        }
     }
 
     
@@ -53,6 +64,20 @@ public abstract class Enemy : MonoBehaviour
     {
         Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
+    }
+
+    protected virtual void Avoidance()
+    {
+        if(sensor.Enemies.Count > 0)
+        {
+            GameObject closestObject = sensor.GetClosestObject(sensor.Enemies);
+
+            if (closestObject != null)
+            {
+                float distance = Vector3.Distance(transform.position, closestObject.transform.position);
+                Debug.Log("The closest object is: "+ closestObject.name +" with distance of " + distance);
+            }
+        }
     }
 
 

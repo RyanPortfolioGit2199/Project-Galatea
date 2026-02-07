@@ -13,7 +13,7 @@ public class Grunt : Enemy
         changeMind -= Time.deltaTime;
         //Debug.Log(changeMind);
 
-        if (playerIsNear)
+        if (EnemyManager.Instance.PlayerDetected)
         {
             brain.PushState(Chase, OnChaseEnter, OnChaseExit);
             Debug.Log("Enemy: I can see the player, I am going to Chase you.");
@@ -39,12 +39,9 @@ public class Grunt : Enemy
 
     protected override void Chase()
     {
-        agent.SetDestination(player.transform.position);
+        agent.SetDestination(EnemyManager.Instance.LastKnownPosition);
         
-        if(!playerIsNear)
-        {
-            brain.PushState(Idle, OnIdleEnter, OnIdleExit);
-        }
+        
         
         if (withinAttackRange)
         {
@@ -88,7 +85,7 @@ public class Grunt : Enemy
             agent.ResetPath();
             brain.PushState(Idle, OnIdleEnter, OnIdleExit);
         }
-        if (playerIsNear)
+        if (EnemyManager.Instance.PlayerDetected)
         {
             brain.PushState(Chase, OnChaseEnter, OnChaseExit);
         }
@@ -123,7 +120,7 @@ public class Grunt : Enemy
     protected override void Attack()
     {
         attackTimer -= Time.deltaTime;
-        AimAtPlayer();
+        //AimAtPlayer();
         if (!withinAttackRange)
         {
             brain.PopState();
