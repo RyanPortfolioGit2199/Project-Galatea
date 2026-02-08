@@ -39,9 +39,8 @@ public class Grunt : Enemy
 
     protected override void Chase()
     {
+        agent.SetDestination(EnemyManager.Instance.LastKnownPosition);
         
-        Vector3 playerPosition = EnemyManager.Instance.LastKnownPosition + Random.insideUnitSphere * 5;
-        agent.SetDestination(playerPosition);
         
         
         if (withinAttackRange)
@@ -81,9 +80,6 @@ public class Grunt : Enemy
 
     protected override void Patrol()
     {
-        
-
-        
         if(agent.remainingDistance <= .25f)
         {
             agent.ResetPath();
@@ -102,17 +98,12 @@ public class Grunt : Enemy
 
     protected override void OnRepositionEnter()
     {
-        agent.ResetPath();
-        stateNote.text = "Reposition";
+        
     }
 
     protected override void Reposition()
     {
         
-        if(sensor.Enemies.Count == 0)
-        {
-            brain.PopState();
-        }
     }
 
     protected override void OnRepositionExit()
@@ -128,10 +119,8 @@ public class Grunt : Enemy
 
     protected override void Attack()
     {
-
         attackTimer -= Time.deltaTime;
-        
-        AimAtPlayer();
+        //AimAtPlayer();
         if (!withinAttackRange)
         {
             brain.PopState();

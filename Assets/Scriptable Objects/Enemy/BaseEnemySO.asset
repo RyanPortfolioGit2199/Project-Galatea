@@ -15,5 +15,3 @@ MonoBehaviour:
   distanceFromPlayer: 40
   attackRange: 30
   fireRate: 1
-  SpeedMultiplier: 1
-  RunAwayDistance: {x: 9, y: 2}
