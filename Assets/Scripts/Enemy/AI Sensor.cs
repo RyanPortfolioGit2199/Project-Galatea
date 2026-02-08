@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AISensor : MonoBehaviour
 {
@@ -246,10 +247,11 @@ public class AISensor : MonoBehaviour
         return closestObject;
     }
 
+
     private void OnValidate()
     {
         aiFOVCone = CreateWedgeMesh();
-        Scan();
+        
     }
 
     private void OnDrawGizmos()

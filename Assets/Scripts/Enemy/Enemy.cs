@@ -45,7 +45,7 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        Avoidance();
+        
         withinAttackRange = Vector3.Distance(this.transform.position, player.transform.position) < enemySO.attackRange;
     }
 
@@ -74,8 +74,20 @@ public abstract class Enemy : MonoBehaviour
 
             if (closestObject != null)
             {
-                float distance = Vector3.Distance(transform.position, closestObject.transform.position);
+                Vector3 distance = (closestObject.transform.position - this.transform.position);
                 Debug.Log("The closest object is: "+ closestObject.name +" with distance of " + distance);
+
+                NavMeshAgent agent = closestObject.GetComponent<NavMeshAgent>();
+                Enemy coSO = closestObject.GetComponent<Enemy>();
+
+                agent.velocity = Vector3.Lerp(
+                    a: agent.desiredVelocity, 
+                    b:distance.normalized * agent.speed * coSO.enemySO.SpeedMultiplier, 
+                    t: Mathf.Clamp01((coSO.enemySO.RunAwayDistance.x - distance.magnitude) / coSO.enemySO.RunAwayDistance.y)
+                    );
+
+                
+                
             }
         }
     }
