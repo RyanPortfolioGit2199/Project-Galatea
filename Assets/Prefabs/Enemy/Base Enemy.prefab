@@ -176,7 +176,11 @@ MonoBehaviour:
   stateNote: {fileID: 6658391000537342056}
   playerIsNear: 0
   Radius: 10
+  offsetRadius: 30
   drawPositionSphere: 0
+  separationStrength: 10
+  minStoppingDistance: 0
+  maxStoppingDistance: 0
 --- !u!114 &6658391000537342056 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2173388940509146722, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}

@@ -3,8 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptable Objects/EnemySO")]
 public class EnemySO : ScriptableObject
 {
-    public int distanceFromPlayer;
-    public int attackRange;
+    public int minDistanceFromPlayer;
+    public int maxDistanceFromPlayer;
     public float fireRate;
+
+
     
 }

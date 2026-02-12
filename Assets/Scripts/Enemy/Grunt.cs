@@ -35,11 +35,18 @@ public class Grunt : Enemy
     protected override void OnChaseEnter()
     {
         stateNote.text = "Chase";
+        PlayerRange();
+        Debug.Log(name + "distance from player is" + playerDistance);
     }
 
     protected override void Chase()
     {
-        agent.SetDestination(EnemyManager.Instance.LastKnownPosition);
+        Vector3 offset = Random.insideUnitSphere * offsetRadius;
+        offset.y = 0f;
+
+        //agent.stoppingDistance = Random.Range(minStoppingDistance, maxStoppingDistance);
+
+        agent.SetDestination(EnemyManager.Instance.LastKnownPosition + offset);
         
         
         
@@ -120,7 +127,7 @@ public class Grunt : Enemy
     protected override void Attack()
     {
         attackTimer -= Time.deltaTime;
-        //AimAtPlayer();
+        AimAtPlayer();
         if (!withinAttackRange)
         {
             brain.PopState();

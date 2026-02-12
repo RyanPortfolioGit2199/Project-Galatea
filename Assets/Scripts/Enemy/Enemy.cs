@@ -15,11 +15,16 @@ public abstract class Enemy : MonoBehaviour
     protected PlayerController player;
     [SerializeField] protected bool playerIsNear;
     [SerializeField] protected float Radius = 10f;
+    [SerializeField] protected float offsetRadius = 30f;
     [SerializeField] bool drawPositionSphere;
+    [SerializeField] protected float separationStrength = 20f;
+    [SerializeField] protected float minStoppingDistance = 10f;
+    [SerializeField] protected float maxStoppingDistance = 20f;
     protected bool withinAttackRange;
     protected float attackTimer;
     protected float changeMind;
     protected AISensor sensor;
+    [SerializeField] protected float playerDistance;
 
     
 
@@ -33,20 +38,23 @@ public abstract class Enemy : MonoBehaviour
         brain = GetComponent<StateMachine>();
         agent = GetComponent<NavMeshAgent>();
         sensor = GetComponent<AISensor>();
-        player = FindAnyObjectByType<PlayerController>();
+        
 
         playerIsNear = false;
         withinAttackRange = false;
         brain.PushState(Idle, OnIdleEnter, OnIdleExit);
 
-        
+        PlayerRange();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        Avoidance();
-        withinAttackRange = Vector3.Distance(this.transform.position, player.transform.position) < enemySO.attackRange;
+        Vector3 separationForce = Avoidance();
+        Vector3 combinedVelocity = agent.desiredVelocity + (separationForce * separationStrength);
+        agent.velocity = combinedVelocity;
+
+        withinAttackRange = Vector3.Distance(this.transform.position, EnemyManager.Instance.LastKnownPosition) < playerDistance;
     }
 
     protected virtual void OnDrawGizmos()
@@ -58,26 +66,35 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    
+    protected virtual float PlayerRange()
+    {
+        playerDistance = Random.Range(enemySO.minDistanceFromPlayer, enemySO.maxDistanceFromPlayer);
+        return playerDistance;
+    }
 
     protected virtual void AimAtPlayer()
     {
-        Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        Quaternion rotation = Quaternion.LookRotation(EnemyManager.Instance.LastKnownPosition - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
     }
 
-    protected virtual void Avoidance()
+    protected virtual Vector3 Avoidance()
     {
+        Vector3 force = Vector3.zero;
+
         if(sensor.Enemies.Count > 0)
         {
-            GameObject closestObject = sensor.GetClosestObject(sensor.Enemies);
-
-            if (closestObject != null)
+            foreach(var obj in sensor.Enemies)
             {
-                float distance = Vector3.Distance(transform.position, closestObject.transform.position);
-                Debug.Log("The closest object is: "+ closestObject.name +" with distance of " + distance);
+                if(obj.gameObject != gameObject)
+                {
+                    Vector3 diff = transform.position - obj.transform.position;
+
+                    force += diff.normalized / Mathf.Max(diff.magnitude, 0.5f);
+                }
             }
         }
+        return force;
     }
 
 
