@@ -4,7 +4,8 @@ public class Grunt : Enemy
 {
     protected override void OnIdleEnter()
     {
-        agent.ResetPath();
+
+        
         stateNote.text = "Idle";
     }
 
@@ -29,7 +30,8 @@ public class Grunt : Enemy
 
     protected override void OnIdleExit()
     {
-        
+        navObstacle.enabled = false;
+        agent.enabled = true;
     }
 
     protected override void OnChaseEnter()
@@ -41,19 +43,26 @@ public class Grunt : Enemy
 
     protected override void Chase()
     {
-        Vector3 offset = Random.insideUnitSphere * offsetRadius;
-        offset.y = 0f;
 
-        //agent.stoppingDistance = Random.Range(minStoppingDistance, maxStoppingDistance);
+        agent.stoppingDistance = playerDistance;
 
-        agent.SetDestination(EnemyManager.Instance.LastKnownPosition + offset);
-        
-        
-        
-        if (withinAttackRange)
+        ObstacleAgent.SetDestination(EnemyManager.Instance.LastKnownPosition);
+
+        ValidatePath(EnemyManager.Instance.LastKnownPosition);
+
+        //Avoidance();
+
+        if (!EnemyManager.Instance.PlayerDetected)
+        {
+            brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
+        }
+
+        if (withinAttackRange && sensor.PlayerInSight)
         {
             brain.PushState(Attack, OnAttackEnter, null);
         }
+
+        
     }
 
     protected override void OnChaseExit()
@@ -63,33 +72,29 @@ public class Grunt : Enemy
 
     protected override void OnPatrolEnter()
     {
+        
+
         stateNote.text = "Patrol";
 
-        Vector3 wanderDistance = (Random.insideUnitSphere * Radius) + transform.position;
+        wanderDistance = (Random.insideUnitSphere * Radius) + transform.position;
         wanderDistance.y = 0f;
         Debug.Log(wanderDistance);
 
-        NavMeshHit navMeshHit;
-        if(NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 << NavMesh.GetAreaFromName("G1")))// delete the 3 later and replace with custom area method value later.
-
-        {
-            destination = navMeshHit.position;
-        } 
+        ObstacleAgent.SetRandomDestination(wanderDistance);
         
-
-        Debug.Log(destination);
-
-        Debug.DrawLine(destination, transform.position, Color.red, 5f);
-
-
-        agent.SetDestination(destination);
+        
     }
 
     protected override void Patrol()
     {
-        if(agent.remainingDistance <= .25f)
+
+        
+
+        
+
+        if(navObstacle.enabled == true)
         {
-            agent.ResetPath();
+            
             brain.PushState(Idle, OnIdleEnter, OnIdleExit);
         }
         if (EnemyManager.Instance.PlayerDetected)
@@ -106,11 +111,19 @@ public class Grunt : Enemy
     protected override void OnRepositionEnter()
     {
         
+
+        stateNote.text = "Reposition";
+        
     }
 
     protected override void Reposition()
     {
         
+       Vector3 newDest = EnemyManager.Instance.RepositionLocation();
+       newDest.y = 0;
+
+       ObstacleAgent.SetDestination(newDest);
+
     }
 
     protected override void OnRepositionExit()
@@ -120,7 +133,7 @@ public class Grunt : Enemy
 
     protected override void OnAttackEnter()
     {
-        agent.ResetPath();
+        
         stateNote.text = "Attack";
     }
 
@@ -131,6 +144,11 @@ public class Grunt : Enemy
         if (!withinAttackRange)
         {
             brain.PopState();
+        }
+        else if (!sensor.PlayerInSight)
+        {
+            Debug.Log(name + " says: Player isn't in my line of sight");
+            //brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
         }
         else if (attackTimer <= 0)
         {

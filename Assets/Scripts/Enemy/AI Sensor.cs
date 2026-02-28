@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using UnityEngine.AI;
 using UnityEngine;
 
 public class AISensor : MonoBehaviour
@@ -18,10 +18,17 @@ public class AISensor : MonoBehaviour
     
     [SerializeField] LayerMask playerLayers;
     [SerializeField] LayerMask enemyLayers;
+    [SerializeField] LayerMask occlusionLayer;
     public Vector3 PlayersLocation {get; private set;}
     public Vector3 EnemyLocation{get; private set;}
     public bool PlayerInSight{get; private set;}
 
+    public bool fleeAway{get; private set;}
+
+    public bool pathObstructed{get; private set;}
+    private NavMeshHit obstacleHit;
+    NavMeshAgent agent;
+    [SerializeField] float maxDistance;
     int playerCount;
     int enemyCount;
     Collider[] playerCollider = new Collider[2];
@@ -31,6 +38,10 @@ public class AISensor : MonoBehaviour
     Mesh aiFOVCone;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     void Start()
     {
@@ -47,6 +58,8 @@ public class AISensor : MonoBehaviour
             scanTimer += scanInterval;
             Scan();
             EnemyScan();
+            if(!agent.enabled){ return;}
+            PathObstructedCheck();
         }
         
     }
@@ -156,7 +169,7 @@ public class AISensor : MonoBehaviour
     private void Scan()
     {
         playerCount = Physics.OverlapSphereNonAlloc(transform.position, distance, playerCollider, playerLayers, QueryTriggerInteraction.Collide);
-
+        PlayerInSight = false;
         Player.Clear();
         for(int i = 0; i < playerCount; ++i)
         {
@@ -166,7 +179,7 @@ public class AISensor : MonoBehaviour
                 Player.Add(obj);
                 GetPlayerLocation();
                 EnemyManager.Instance.ReportPlayerLocation(PlayersLocation);
-            
+                PlayerInSight = true;
             }
         }
     }
@@ -182,6 +195,10 @@ public class AISensor : MonoBehaviour
         direction.y = 0;
         float deltaAngle = Vector3.Angle(direction, transform.forward);
         if (deltaAngle > angle){return false;}
+
+        origin.y += height / 2;
+        dest.y = origin.y;
+        if(Physics.Linecast(origin, dest, occlusionLayer)){return false;}
 
         return true;
     }
@@ -209,6 +226,7 @@ public class AISensor : MonoBehaviour
             Enemies.Remove(this.gameObject);
             
             GetEnemiesLocations();
+            
         }
         
     }
@@ -225,6 +243,28 @@ public class AISensor : MonoBehaviour
 
         return EnemyLocation;
     }
+
+
+    private bool PathObstructedCheck()
+    {
+        
+
+        if(! agent.SamplePathPosition(3 << NavMesh.GetAreaFromName("G1"), maxDistance, out obstacleHit))
+        {
+            if(obstacleHit.mask == 0) // Area Mask 0 means an area that is not walkable/carved.
+            {
+                pathObstructed = true;
+            }
+            else
+            {
+                pathObstructed = false;
+            }
+        }
+
+
+        return pathObstructed;
+    }
+    
 
     public GameObject GetClosestObject(List<GameObject> objects)
     {

@@ -12,6 +12,8 @@ public abstract class Enemy : MonoBehaviour
     
     protected StateMachine brain;
     protected NavMeshAgent agent;
+    protected ObstacleAgent ObstacleAgent;
+    protected NavMeshObstacle navObstacle;
     protected PlayerController player;
     [SerializeField] protected bool playerIsNear;
     [SerializeField] protected float Radius = 10f;
@@ -24,9 +26,12 @@ public abstract class Enemy : MonoBehaviour
     protected float attackTimer;
     protected float changeMind;
     protected AISensor sensor;
+    protected Vector3 wanderDistance;
     [SerializeField] protected float playerDistance;
+    [SerializeField] protected float fleeDistance;
 
     
+    protected bool destinationReached = true;
 
     protected Vector3 destination;
 
@@ -38,11 +43,14 @@ public abstract class Enemy : MonoBehaviour
         brain = GetComponent<StateMachine>();
         agent = GetComponent<NavMeshAgent>();
         sensor = GetComponent<AISensor>();
-        
+        ObstacleAgent = GetComponent<ObstacleAgent>();
+        navObstacle = GetComponent<NavMeshObstacle>();
 
         playerIsNear = false;
         withinAttackRange = false;
         brain.PushState(Idle, OnIdleEnter, OnIdleExit);
+
+        agent.avoidancePriority = Random.Range(10, 90);
 
         PlayerRange();
     }
@@ -50,9 +58,8 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        Vector3 separationForce = Avoidance();
-        Vector3 combinedVelocity = agent.desiredVelocity + (separationForce * separationStrength);
-        agent.velocity = combinedVelocity;
+        
+        
 
         withinAttackRange = Vector3.Distance(this.transform.position, EnemyManager.Instance.LastKnownPosition) < playerDistance;
     }
@@ -78,24 +85,29 @@ public abstract class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
     }
 
-    protected virtual Vector3 Avoidance()
+    protected virtual void ValidatePath(Vector3 Position)
     {
-        Vector3 force = Vector3.zero;
+         if (destinationReached || agent.pathPending) return;
 
-        if(sensor.Enemies.Count > 0)
+        // Check if the path is blocked by a carved hole (Partial)
+        // or if the NavMesh update made the current path 'stale'
+        if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.isPathStale)
         {
-            foreach(var obj in sensor.Enemies)
-            {
-                if(obj.gameObject != gameObject)
-                {
-                    Vector3 diff = transform.position - obj.transform.position;
-
-                    force += diff.normalized / Mathf.Max(diff.magnitude, 0.5f);
-                }
-            }
+            // Re-request the path to the original destination. 
+            // Because the obstacle has 'carved' a hole, the A* algorithm 
+            // will now look for a way AROUND that hole to reach savedTarget.
+            ObstacleAgent.SetDestination(Position);
+            
+            Debug.Log("Obstacle carved the mesh. Recalculating detour to: " + Position);
         }
-        return force;
+
+        // Standard arrival check
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance) 
+        {
+            destinationReached = true;
+        }
     }
+
 
 
     protected abstract void OnIdleEnter();

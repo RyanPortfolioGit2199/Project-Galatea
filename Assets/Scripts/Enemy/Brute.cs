@@ -73,25 +73,29 @@ public class Brute : Enemy
         wanderDistance.y = 0f;
         Debug.Log(wanderDistance);
 
-        NavMeshHit navMeshHit;
-        if(NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 << NavMesh.GetAreaFromName("G1")))// delete the 3 later and replace with custom area method value later.
-
+        if(agent.enabled && agent.remainingDistance < 0.25f)
         {
-            destination = navMeshHit.position;
-        } 
+            NavMeshHit navMeshHit;
+            if(NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 << NavMesh.GetAreaFromName("G1")))// delete the 3 later and replace with custom area method value later.
+
+            {
+                destination = navMeshHit.position;
+            } 
+
+            Debug.Log(destination);
+
+            Debug.DrawLine(destination, transform.position, Color.red, 5f);
+
+
+            ObstacleAgent.SetDestination(destination);
+        }
         
-
-        Debug.Log(destination);
-
-        Debug.DrawLine(destination, transform.position, Color.red, 5f);
-
-
-        agent.SetDestination(destination);
+        
     }
 
     protected override void Patrol()
     {
-        if(agent.remainingDistance <= .25f)
+        if(agent.enabled && agent.remainingDistance <= .25f)
         {
             agent.ResetPath();
             brain.PushState(Idle, OnIdleEnter, OnIdleExit);
