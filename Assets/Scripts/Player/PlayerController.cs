@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         
         Vector3 moveValue = moveDirection * moveSpeed;
         
-        playerController.Move(moveValue * Time.deltaTime);
+        playerController.SimpleMove(moveValue);
         
 
         /*

@@ -146,7 +146,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2.34
-  m_BaseOffset: 1.57
+  m_BaseOffset: 1.87
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &5090883712378961268
@@ -165,6 +165,13 @@ MonoBehaviour:
   stateNote: {fileID: 7315922004860039418}
   playerIsNear: 0
   Radius: 10
+  offsetRadius: 30
+  drawPositionSphere: 0
+  separationStrength: 20
+  minStoppingDistance: 10
+  maxStoppingDistance: 20
+  playerDistance: 0
+  fleeDistance: 0
 --- !u!114 &7315922004860039418 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2173388940509146722, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}

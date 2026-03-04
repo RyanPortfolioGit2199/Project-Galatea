@@ -189,7 +189,7 @@ public class AISensor : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 dest = obj.transform.position;
         Vector3 direction = dest - origin;
-        if(direction.y < 0 || direction.y > height){return false;}
+        if(direction.y < -1.0f || direction.y > height){return false;}
 
 
         direction.y = 0;

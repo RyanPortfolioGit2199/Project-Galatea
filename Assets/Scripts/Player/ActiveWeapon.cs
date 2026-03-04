@@ -10,7 +10,7 @@ public class ActiveWeapon : MonoBehaviour
 
 
     [Header("References")]
-    [SerializeField] WeaponSO weaponSO;
+    public WeaponSO WeaponSO;
 
     
 
@@ -36,10 +36,10 @@ public class ActiveWeapon : MonoBehaviour
 
         if(!playerInputScript.shoot)  return;
 
-        if(timeSinceLastShot >= weaponSO.FireRate)
+        if(timeSinceLastShot >= WeaponSO.FireRate)
         {
             
-            currentGun.Shoot(weaponSO);
+            currentGun.Shoot(WeaponSO);
             timeSinceLastShot = 0f;
         }
 
@@ -51,9 +51,9 @@ public class ActiveWeapon : MonoBehaviour
         {
             Destroy(currentGun.gameObject);
         }
-        Gun newGun = Instantiate(weaponSO.GunPrefab, transform).GetComponent<Gun>();
+        Gun newGun = Instantiate(WeaponSO.GunPrefab, transform).GetComponent<Gun>();
         currentGun = newGun;
 // this.weaponSO is the weaponSO variable declared at the begining of the script. ///// the other weaponSO is the on I declared at the start of the SwitchWeapon Method
-        this.weaponSO = weaponSO;
+        this.WeaponSO = weaponSO;
     }
 }

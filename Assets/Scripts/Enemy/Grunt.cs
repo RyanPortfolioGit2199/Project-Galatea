@@ -17,12 +17,12 @@ public class Grunt : Enemy
         if (EnemyManager.Instance.PlayerDetected)
         {
             brain.PushState(Chase, OnChaseEnter, OnChaseExit);
-            Debug.Log("Enemy: I can see the player, I am going to Chase you.");
+            //Debug.Log("Enemy: I can see the player, I am going to Chase you.");
         }
         if(changeMind <= 0)
         {
             brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
-            Debug.Log("Enemy: The Player isn't in site. Going on Patrol.");
+            
             changeMind = Random.Range(4, 10);
         }
 
@@ -30,8 +30,7 @@ public class Grunt : Enemy
 
     protected override void OnIdleExit()
     {
-        navObstacle.enabled = false;
-        agent.enabled = true;
+        
     }
 
     protected override void OnChaseEnter()
@@ -39,6 +38,9 @@ public class Grunt : Enemy
         stateNote.text = "Chase";
         PlayerRange();
         Debug.Log(name + "distance from player is" + playerDistance);
+        
+        
+        
     }
 
     protected override void Chase()
@@ -46,9 +48,11 @@ public class Grunt : Enemy
 
         agent.stoppingDistance = playerDistance;
 
+        
+        
         ObstacleAgent.SetDestination(EnemyManager.Instance.LastKnownPosition);
-
-        ValidatePath(EnemyManager.Instance.LastKnownPosition);
+        //destinationReached = false;
+           
 
         //Avoidance();
 
@@ -57,9 +61,9 @@ public class Grunt : Enemy
             brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
         }
 
-        if (withinAttackRange && sensor.PlayerInSight)
+        if (withinAttackRange)
         {
-            brain.PushState(Attack, OnAttackEnter, null);
+            brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
         }
 
         
@@ -78,7 +82,7 @@ public class Grunt : Enemy
 
         wanderDistance = (Random.insideUnitSphere * Radius) + transform.position;
         wanderDistance.y = 0f;
-        Debug.Log(wanderDistance);
+        //Debug.Log(wanderDistance);
 
         ObstacleAgent.SetRandomDestination(wanderDistance);
         
@@ -111,18 +115,37 @@ public class Grunt : Enemy
     protected override void OnRepositionEnter()
     {
         
-
+        PlayerRange();
+        
         stateNote.text = "Reposition";
+        agent.updateRotation = false;
+        Vector3 newDest = EnemyManager.Instance.RepositionLocation();
+        newDest.y = 0;
+
+        ObstacleAgent.SetDestination(newDest);
         
     }
 
     protected override void Reposition()
     {
+        agent.stoppingDistance = playerDistance;
         
-       Vector3 newDest = EnemyManager.Instance.RepositionLocation();
-       newDest.y = 0;
+        AimAtPlayer();
 
-       ObstacleAgent.SetDestination(newDest);
+        if (navObstacle.enabled && !sensor.PlayerInSight)
+        {
+            brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
+        }   
+
+        if (!withinAttackRange)
+        {
+            brain.PushState(Chase, OnChaseEnter, OnChaseExit);
+        }
+
+        if (sensor.PlayerInSight && navObstacle.enabled)
+        {
+            brain.PushState(Attack, OnAttackEnter, null);
+        }
 
     }
 
@@ -133,7 +156,10 @@ public class Grunt : Enemy
 
     protected override void OnAttackEnter()
     {
-        
+        if (agent.enabled)
+        {
+            agent.ResetPath();
+        }
         stateNote.text = "Attack";
     }
 
@@ -148,7 +174,7 @@ public class Grunt : Enemy
         else if (!sensor.PlayerInSight)
         {
             Debug.Log(name + " says: Player isn't in my line of sight");
-            //brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
+            brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
         }
         else if (attackTimer <= 0)
         {

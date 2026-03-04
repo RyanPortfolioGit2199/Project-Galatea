@@ -82,12 +82,13 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void AimAtPlayer()
     {
         Quaternion rotation = Quaternion.LookRotation(EnemyManager.Instance.LastKnownPosition - transform.position);
+        rotation.x = 0f;
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
     }
 
     protected virtual void ValidatePath(Vector3 Position)
     {
-         if (destinationReached || agent.pathPending) return;
+        if (destinationReached || agent.pathPending) return;
 
         // Check if the path is blocked by a carved hole (Partial)
         // or if the NavMesh update made the current path 'stale'
@@ -108,7 +109,10 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-
+    protected virtual void ChaseStateStuckCheck()
+    {
+        
+    }
 
     protected abstract void OnIdleEnter();
     
