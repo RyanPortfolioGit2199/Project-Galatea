@@ -7,6 +7,8 @@ public class Gun : MonoBehaviour
     int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
     ParticleSystem bulletParticle;
     ActiveWeapon activeWeapon;
+    public float shieldDamage;
+    public float healthDamage;
 
     void Awake()
     {
@@ -18,6 +20,10 @@ public class Gun : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
         activeWeapon = GetComponentInParent<ActiveWeapon>();
 
+        
+
+        shieldDamage = activeWeapon.WeaponSO.ShieldDamage;
+        healthDamage = activeWeapon.WeaponSO.Damage;
         
     }
 
