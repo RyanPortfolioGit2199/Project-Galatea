@@ -52,20 +52,23 @@ public class EnemyManager : MonoBehaviour
     public void PlayerInSightCheck()
     {
         
-
+        
         foreach (GameObject eObj in EnemiesInLevel)
         {
-            sensor = eObj.GetComponent<AISensor>();
-            if (!sensor.PlayerInSight && timerRoutine == null)
+            if(eObj != null)
             {
+                sensor = eObj.GetComponent<AISensor>();
+                if (!sensor.PlayerInSight && timerRoutine == null)
+                {
                 
-                timerRoutine = StartCoroutine(StartTimer());
-            }
-            else if(sensor.PlayerInSight && timerRoutine != null)
-            {
-                StopCoroutine(timerRoutine);
-                timerRoutine = null;
+                    timerRoutine = StartCoroutine(StartTimer());
+                }
+                else if(sensor.PlayerInSight && timerRoutine != null)
+                {
+                    StopCoroutine(timerRoutine);
+                    timerRoutine = null;
                 
+                }
             }
 
             
