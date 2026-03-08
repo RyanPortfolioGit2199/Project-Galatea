@@ -1,24 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSystem : MonoBehaviour
+public abstract class HealthSystem : MonoBehaviour
 {
     [SerializeField] private Slider HealthBar;
     [SerializeField] private Slider ShieldBar;
     
     private float health;
     private float shield;
-    private float maxHealth;
-    private float maxShield;
-    [SerializeField] private CharacterStatsSO characterStatsSO;
+    public float maxHealth;
+    public float maxShield;
+    
     
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
-        maxShield = characterStatsSO.shield;
-        maxHealth = characterStatsSO.health;
+        
         health = maxHealth;
         shield = maxShield;
     }
@@ -26,7 +25,14 @@ public class HealthSystem : MonoBehaviour
 
     void Update()
     {
-        if(health <= 0)
+        Die();
+    }
+
+    private void Die()
+    {
+        // Refactor later to implement either/both a dieing animation, a particle explosion. Before 
+
+        if (health <= 0)
         {
             Debug.Log(name + "says: I am Dead");
             Destroy(this.gameObject);
@@ -67,4 +73,8 @@ public class HealthSystem : MonoBehaviour
         shield = Mathf.Max(shield, 0f);
         UpdateShieldBar(shield, maxShield);
     }
+
+    protected abstract void ShieldRecharge();
+
+    
 }

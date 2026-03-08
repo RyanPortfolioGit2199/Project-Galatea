@@ -838,9 +838,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6377294183603908487}
   - component: {fileID: 308960666881619282}
-  - component: {fileID: 1142555136728822108}
   - component: {fileID: 1767887594626697762}
   - component: {fileID: 5677221127782808968}
+  - component: {fileID: 756263959616574566}
   m_Layer: 0
   m_Name: Enemy Base
   m_TagString: Enemy
@@ -889,21 +889,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1142555136728822108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5058571621468157260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9aa945455459b47a13520379381d62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HealthBar: {fileID: 3174632444161378370}
-  ShieldBar: {fileID: 5084657489013356535}
-  characterStatsSO: {fileID: 11400000, guid: deb81434ef69001458e9825acc1d9612, type: 2}
 --- !u!114 &1767887594626697762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +932,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   maxDistance: 0
+--- !u!114 &756263959616574566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5058571621468157260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 718d30c34cb7b074ab80691cef6a084f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBar: {fileID: 0}
+  ShieldBar: {fileID: 0}
+  maxHealth: 0
+  maxShield: 0
+  enemySO: {fileID: 0}
 --- !u!1 &5148719077123390989
 GameObject:
   m_ObjectHideFlags: 0

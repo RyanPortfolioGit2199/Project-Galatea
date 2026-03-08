@@ -32,6 +32,18 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 756263959616574566, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: enemySO
+      value: 
+      objectReference: {fileID: 11400000, guid: efadba88615fe984ab3ddf2c057140b1, type: 2}
+    - target: {fileID: 756263959616574566, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: HealthBar
+      value: 
+      objectReference: {fileID: 7944553757416326728}
+    - target: {fileID: 756263959616574566, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: ShieldBar
+      value: 
+      objectReference: {fileID: 350827653400066557}
     - target: {fileID: 1142555136728822108, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: HealthBar
       value: 
@@ -183,6 +195,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9171515472891954598, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
     - {fileID: 3483587197577264517, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+    - {fileID: 1142555136728822108, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
