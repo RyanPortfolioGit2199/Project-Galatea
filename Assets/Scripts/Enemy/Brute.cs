@@ -10,9 +10,10 @@ public class Brute : Enemy
         Temp Grunt Behavior will update later!!!!!!!
     */
 
-	protected override void OnIdleEnter()
+	    protected override void OnIdleEnter()
     {
-        agent.ResetPath();
+
+        
         stateNote.text = "Idle";
     }
 
@@ -21,15 +22,15 @@ public class Brute : Enemy
         changeMind -= Time.deltaTime;
         //Debug.Log(changeMind);
 
-        if (playerIsNear)
+        if (EnemyManager.Instance.PlayerDetected)
         {
             brain.PushState(Chase, OnChaseEnter, OnChaseExit);
-            Debug.Log("Enemy: I can see the player, I am going to Chase you.");
+            //Debug.Log("Enemy: I can see the player, I am going to Chase you.");
         }
         if(changeMind <= 0)
         {
             brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
-            Debug.Log("Enemy: The Player isn't in site. Going on Patrol.");
+            
             changeMind = Random.Range(4, 10);
         }
 
@@ -43,21 +44,37 @@ public class Brute : Enemy
     protected override void OnChaseEnter()
     {
         stateNote.text = "Chase";
+        PlayerRange();
+        Debug.Log(name + "distance from player is" + playerDistance);
+        
+        
+        
     }
 
     protected override void Chase()
     {
-        agent.SetDestination(player.transform.position);
+
+        agent.stoppingDistance = playerDistance;
+
         
-        if(!playerIsNear)
+        
+        ObstacleAgent.SetDestination(EnemyManager.Instance.LastKnownPosition);
+        //destinationReached = false;
+           
+
+        //Avoidance();
+
+        if (!EnemyManager.Instance.PlayerDetected)
         {
-            brain.PushState(Idle, OnIdleEnter, OnIdleExit);
+            brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
         }
-        
+
         if (withinAttackRange)
         {
-            brain.PushState(Attack, OnAttackEnter, null);
+            brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
         }
+
+        
     }
 
     protected override void OnChaseExit()
@@ -67,40 +84,32 @@ public class Brute : Enemy
 
     protected override void OnPatrolEnter()
     {
+        
+
         stateNote.text = "Patrol";
 
-        Vector3 wanderDistance = (Random.insideUnitSphere * Radius) + transform.position;
+        wanderDistance = (Random.insideUnitSphere * Radius) + transform.position;
         wanderDistance.y = 0f;
-        Debug.Log(wanderDistance);
+        //Debug.Log(wanderDistance);
 
-        if(agent.enabled && agent.remainingDistance < 0.25f)
-        {
-            NavMeshHit navMeshHit;
-            if(NavMesh.SamplePosition(wanderDistance, out navMeshHit, 4f, 3 << NavMesh.GetAreaFromName("G1")))// delete the 3 later and replace with custom area method value later.
-
-            {
-                destination = navMeshHit.position;
-            } 
-
-            Debug.Log(destination);
-
-            Debug.DrawLine(destination, transform.position, Color.red, 5f);
-
-
-            ObstacleAgent.SetDestination(destination);
-        }
+        ObstacleAgent.SetRandomDestination(wanderDistance);
         
         
     }
 
     protected override void Patrol()
     {
-        if(agent.enabled && agent.remainingDistance <= .25f)
+
+        
+
+        
+
+        if(navObstacle.enabled == true)
         {
-            agent.ResetPath();
+            
             brain.PushState(Idle, OnIdleEnter, OnIdleExit);
         }
-        if (playerIsNear)
+        if (EnemyManager.Instance.PlayerDetected)
         {
             brain.PushState(Chase, OnChaseEnter, OnChaseExit);
         }
@@ -114,11 +123,38 @@ public class Brute : Enemy
     protected override void OnRepositionEnter()
     {
         
+        PlayerRange();
+        
+        stateNote.text = "Reposition";
+        agent.updateRotation = false;
+        Vector3 newDest = EnemyManager.Instance.RepositionLocation();
+        newDest.y = 0;
+
+        ObstacleAgent.SetDestination(newDest);
+        
     }
 
     protected override void Reposition()
     {
+        agent.stoppingDistance = playerDistance;
         
+        AimAtPlayer();
+
+        if (navObstacle.enabled && !sensor.PlayerInSight)
+        {
+            brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
+        }   
+
+        if (!withinAttackRange)
+        {
+            brain.PushState(Chase, OnChaseEnter, OnChaseExit);
+        }
+
+        if (sensor.PlayerInSight && navObstacle.enabled)
+        {
+            brain.PushState(Attack, OnAttackEnter, null);
+        }
+
     }
 
     protected override void OnRepositionExit()
@@ -128,7 +164,10 @@ public class Brute : Enemy
 
     protected override void OnAttackEnter()
     {
-        agent.ResetPath();
+        if (agent.enabled)
+        {
+            agent.ResetPath();
+        }
         stateNote.text = "Attack";
     }
 
@@ -139,6 +178,11 @@ public class Brute : Enemy
         if (!withinAttackRange)
         {
             brain.PopState();
+        }
+        else if (!sensor.PlayerInSight)
+        {
+            Debug.Log(name + " says: Player isn't in my line of sight");
+            brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
         }
         else if (attackTimer <= 0)
         {

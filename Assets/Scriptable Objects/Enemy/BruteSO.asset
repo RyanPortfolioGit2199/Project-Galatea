@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87ae08ee4d19fe41997653531468f2f, type: 3}
   m_Name: BruteSO
   m_EditorClassIdentifier: 
-  distanceFromPlayer: 40
-  attackRange: 25
+  minDistanceFromPlayer: 15
+  maxDistanceFromPlayer: 25
   fireRate: 2
+  health: 20
+  shield: 12
+  shieldRechargeRate: 0

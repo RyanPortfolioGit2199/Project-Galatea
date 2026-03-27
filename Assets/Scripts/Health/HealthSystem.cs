@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,11 +6,16 @@ public abstract class HealthSystem : MonoBehaviour
 {
     [SerializeField] private Slider HealthBar;
     [SerializeField] private Slider ShieldBar;
+    [SerializeField] bool isBrute;
     
     private float health;
-    private float shield;
+    public float shield;
     public float maxHealth;
     public float maxShield;
+    public bool gotShot;
+    public Coroutine timerRoutine;
+
+    public bool canRecharge;
     
     
 
@@ -17,7 +23,6 @@ public abstract class HealthSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
         health = maxHealth;
         shield = maxShield;
     }
@@ -25,7 +30,13 @@ public abstract class HealthSystem : MonoBehaviour
 
     void Update()
     {
-        Die();
+        if(shield < maxShield && !isBrute)
+        {
+            CanRechargeCheck();
+            ShieldRechargeCheck();
+        }
+        
+        Die();  
     }
 
     private void Die()
@@ -44,12 +55,17 @@ public abstract class HealthSystem : MonoBehaviour
         Gun particleInfo = other.GetComponent<Gun>();
         if(particleInfo != null)
         {
+            gotShot = true;
+            canRecharge = false;
             Debug.Log("Enemy says: Ouchie I took Shield Damage: "+ particleInfo.shieldDamage + "and health damage: " + particleInfo.healthDamage);
-
+            StartCoroutine(ShotTimer());
             TakeShieldDamage(particleInfo.shieldDamage);
-            if(shield > 0) {return;}
-            TakeHealthDamage(particleInfo.healthDamage);
+            
+            if(shield <= 0) {TakeHealthDamage(particleInfo.healthDamage);}
+            
+            
         }
+        
     }
     public void UpdateHealthBar(float currentVale, float maxValue)
     {
@@ -74,7 +90,43 @@ public abstract class HealthSystem : MonoBehaviour
         UpdateShieldBar(shield, maxShield);
     }
 
-    protected abstract void ShieldRecharge();
+    protected abstract void ShieldRechargeCheck();
 
+    public void CanRechargeCheck()
+    {
+        
+
+        if (this.gameObject != null)
+        {
+            if(!gotShot && timerRoutine == null)
+            {
+                StartCoroutine(RechargeTimer());
+            }
+            else if (gotShot)
+            {
+                Debug.Log("Got Shot canceled recharge");
+                canRecharge = false;
+                StopCoroutine(RechargeTimer());
+                
+                
+            }
+        }
+        
+    }
+
+    IEnumerator ShotTimer()
+    {
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Setting gotShot to false because " + this.name + " hasn't been shot in the past 3 seconds");
+        gotShot = false;
+    }
+
+    IEnumerator RechargeTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        Debug.Log("Shield executed after 6 seconds of"+this.name + " being false");
+        timerRoutine = null;
+        canRecharge = true;
+    }
     
 }

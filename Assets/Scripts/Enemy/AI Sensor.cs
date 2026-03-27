@@ -294,31 +294,36 @@ public class AISensor : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (aiFOVCone && showAISensor)
+        if (this.gameObject != null)
         {
-            Gizmos.color = meshColor;
-            Gizmos.DrawMesh(aiFOVCone, transform.position, transform.rotation);
+            if (aiFOVCone && showAISensor)
+            {
+                Gizmos.color = meshColor;
+                Gizmos.DrawMesh(aiFOVCone, transform.position, transform.rotation);
+            }
+
+            if (showAISensor)
+            {
+                Gizmos.DrawWireSphere(transform.position, distance);
+
+                Gizmos.color = Color.green;
+                foreach (var obj in Player)
+                {
+                    Gizmos.DrawSphere(obj.transform.position, 1f);
+                    Gizmos.DrawLine(this.transform.position, obj.transform.position);
+                }   
+
+                Gizmos.color = new Color(1, 0f, 0f, 0.65f);
+                Gizmos.DrawWireSphere(transform.position, enemyDistance);  
+                foreach(var Eobj in Enemies)
+                {
+                    Gizmos.DrawSphere(Eobj.transform.position, 1.7f);
+                    Gizmos.DrawLine(this.transform.position, Eobj.transform.position);
+                }      
+        }
         }
 
-        if (showAISensor)
-        {
-            Gizmos.DrawWireSphere(transform.position, distance);
-
-            Gizmos.color = Color.green;
-            foreach (var obj in Player)
-            {
-                Gizmos.DrawSphere(obj.transform.position, 1f);
-                Gizmos.DrawLine(this.transform.position, obj.transform.position);
-            }   
-
-            Gizmos.color = new Color(1, 0f, 0f, 0.65f);
-            Gizmos.DrawWireSphere(transform.position, enemyDistance);  
-            foreach(var Eobj in Enemies)
-            {
-                Gizmos.DrawSphere(Eobj.transform.position, 1.7f);
-                Gizmos.DrawLine(this.transform.position, Eobj.transform.position);
-            }      
-        }
+        
 
 
     }

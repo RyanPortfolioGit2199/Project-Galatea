@@ -8,6 +8,7 @@ public class EnemySO : ScriptableObject
     public float fireRate;
     public float health;
     public float shield;
+    public float shieldRechargeRate;
     
 
 

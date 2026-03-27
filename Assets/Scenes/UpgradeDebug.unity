@@ -4885,7 +4885,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d20eb837c3d2050418da8a85383d4d7d, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6835486427468331609, guid: 6c73d9be86b44b540bf692942da8cada, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8170750823936236684, guid: 6c73d9be86b44b540bf692942da8cada, type: 3}
       insertIndex: -1
@@ -6387,7 +6388,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
