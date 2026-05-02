@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df42d2297be47704d9e2c06e4a04393e, type: 3}
-  m_Name: GruntHealthSO
+  m_Script: {fileID: 11500000, guid: 8f89fde8faf09bf46bdbe84aeec59ea8, type: 3}
+  m_Name: SniperWeaponSO
   m_EditorClassIdentifier: 
-  health: 12
-  shield: 6
+  Damage: 4
+  ShieldDamage: 2
+  IsAutomatic: 0
+  CanCharge: 0
+  HitVFX: {fileID: 0}
+  FireRate: 0
+  GunPrefab: {fileID: 0}

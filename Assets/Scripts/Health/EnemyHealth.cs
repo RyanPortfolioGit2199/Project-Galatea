@@ -1,10 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyHealth : HealthSystem
 {
     [SerializeField] EnemySO enemySO;
-    private float smoothVelocity = 0.1f;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -13,24 +14,58 @@ public class EnemyHealth : HealthSystem
         maxHealth = enemySO.health;
     }
 
-
-
-    protected override void ShieldRechargeCheck()
+    public void OnParticleCollision(GameObject other)
     {
-        
-
-        if (this.gameObject != null)
+        Gun particleInfo = other.GetComponent<Gun>();
+        if(particleInfo != null)
         {
+            gotShot = true;
+            canRecharge = false;
+            Debug.Log("Enemy says: Ouchie I took Shield Damage: "+ particleInfo.shieldDamage + "and health damage: " + particleInfo.healthDamage);
+            StartCoroutine(ShotTimer());
+            TakeShieldDamage(particleInfo.shieldDamage);
             
+            if(shield <= 0) {TakeHealthDamage(particleInfo.healthDamage);}
             
-
-            if(canRecharge && !gotShot)// fix: add a corutine later to add a delay for the isShot bool, maybe increase in update using += shield.
-            {
-                Debug.Log("Replace later");
-                shield += smoothVelocity;
-                UpdateShieldBar(shield, maxShield);     
-            }
             
         }
+        
     }
+
+    public IEnumerator RechargeTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        Debug.Log("Shield executed after 6 seconds of"+this.name + " being false");
+        timerRoutine = null;
+        canRecharge = true;
+    }
+
+    protected override void CanRechargeCheck()
+    {
+         if (this.gameObject != null)
+        {
+            if(!gotShot && timerRoutine == null)
+            {
+                timerRoutine = StartCoroutine(RechargeTimer());
+            }
+            else if (gotShot)
+            {
+                Debug.Log("Got Shot canceled recharge");
+                canRecharge = false;
+                StopCoroutine(RechargeTimer());
+                
+                
+            }
+        }
+    }
+
+    protected override void Die()
+    {
+        if (health <= 0)
+        {
+            Debug.Log(name + "says: I am Dead");
+            Destroy(this.gameObject);
+        }
+    }
+    
 }

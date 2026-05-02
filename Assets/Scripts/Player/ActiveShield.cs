@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class ActiveShield : MonoBehaviour
 {
-    [SerializeField] ShieldSO shieldSO;
+    public ShieldSO shieldSO;
+    
 
     Shield currentShield;
 

@@ -8,7 +8,7 @@ public abstract class HealthSystem : MonoBehaviour
     [SerializeField] private Slider ShieldBar;
     [SerializeField] bool isBrute;
     
-    private float health;
+    public float health;
     public float shield;
     public float maxHealth;
     public float maxShield;
@@ -16,6 +16,7 @@ public abstract class HealthSystem : MonoBehaviour
     public Coroutine timerRoutine;
 
     public bool canRecharge;
+    private float smoothVelocity = 0.1f;
     
     
 
@@ -36,37 +37,12 @@ public abstract class HealthSystem : MonoBehaviour
             ShieldRechargeCheck();
         }
         
-        Die();  
+         Die();
     }
 
-    private void Die()
-    {
-        // Refactor later to implement either/both a dieing animation, a particle explosion. Before 
+    
 
-        if (health <= 0)
-        {
-            Debug.Log(name + "says: I am Dead");
-            Destroy(this.gameObject);
-        }
-    }
-
-    public void OnParticleCollision(GameObject other)
-    {
-        Gun particleInfo = other.GetComponent<Gun>();
-        if(particleInfo != null)
-        {
-            gotShot = true;
-            canRecharge = false;
-            Debug.Log("Enemy says: Ouchie I took Shield Damage: "+ particleInfo.shieldDamage + "and health damage: " + particleInfo.healthDamage);
-            StartCoroutine(ShotTimer());
-            TakeShieldDamage(particleInfo.shieldDamage);
-            
-            if(shield <= 0) {TakeHealthDamage(particleInfo.healthDamage);}
-            
-            
-        }
-        
-    }
+    
     public void UpdateHealthBar(float currentVale, float maxValue)
     {
         HealthBar.value = currentVale / maxValue;
@@ -85,48 +61,43 @@ public abstract class HealthSystem : MonoBehaviour
 
     public void TakeShieldDamage(float GunDamage)
     {
+        Debug.Log(shield);
         shield -= GunDamage;
-        shield = Mathf.Max(shield, 0f);
+        Debug.Log(shield + "After Damage");
+        shield = Mathf.Max(shield, 0f); // somehow player is calculating x5 damage when taken need to look into it
         UpdateShieldBar(shield, maxShield);
     }
 
-    protected abstract void ShieldRechargeCheck();
+    //var name = "Scott"; var count = 3; var msg = $"Hello {name}, you have {count} items.";
 
-    public void CanRechargeCheck()
+    public void ShieldRechargeCheck()
     {
-        
-
         if (this.gameObject != null)
         {
-            if(!gotShot && timerRoutine == null)
+            
+            if(this.shield == maxShield) {return;}
+
+            if(canRecharge && !gotShot)// fix: add a corutine later to add a delay for the isShot bool, maybe increase in update using += shield.
             {
-                StartCoroutine(RechargeTimer());
+                Debug.Log("Replace later");
+                this.shield += smoothVelocity;
+                UpdateShieldBar(shield, maxShield);     
             }
-            else if (gotShot)
-            {
-                Debug.Log("Got Shot canceled recharge");
-                canRecharge = false;
-                StopCoroutine(RechargeTimer());
-                
-                
-            }
+            
         }
-        
     }
 
-    IEnumerator ShotTimer()
+    protected abstract void CanRechargeCheck();
+    protected abstract void Die();
+        // Refactor later to implement either/both a dieing animation, a particle explosion. Before
+
+    public IEnumerator ShotTimer()
     {
         yield return new WaitForSeconds(3f);
         Debug.Log("Setting gotShot to false because " + this.name + " hasn't been shot in the past 3 seconds");
         gotShot = false;
     }
 
-    IEnumerator RechargeTimer()
-    {
-        yield return new WaitForSeconds(10f);
-        Debug.Log("Shield executed after 6 seconds of"+this.name + " being false");
-        timerRoutine = null;
-        canRecharge = true;
-    }
+    
     
 }

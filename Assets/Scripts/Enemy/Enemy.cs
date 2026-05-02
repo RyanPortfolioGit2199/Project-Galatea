@@ -9,6 +9,8 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField] protected EnemySO enemySO;
     [SerializeField] protected TextMeshProUGUI stateNote;
+
+    protected EnemyGun currentGun;
     
     protected StateMachine brain;
     protected NavMeshAgent agent;
@@ -36,15 +38,20 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 destination;
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         brain = GetComponent<StateMachine>();
         agent = GetComponent<NavMeshAgent>();
         sensor = GetComponent<AISensor>();
         ObstacleAgent = GetComponent<ObstacleAgent>();
         navObstacle = GetComponent<NavMeshObstacle>();
+        currentGun = GetComponentInChildren<EnemyGun>();
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    protected virtual void Start()
+    {
+        
 
         playerIsNear = false;
         withinAttackRange = false;

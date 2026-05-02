@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.AI;
-public class Grunt : Enemy
+
+public class Sniper : Enemy
 {
-    protected override void OnIdleEnter()
+protected override void OnIdleEnter()
     {
 
         
@@ -179,7 +179,6 @@ public class Grunt : Enemy
         else if (attackTimer <= 0)
         {
             Debug.Log("Enemy: Pew Pew Pew firing my gun at the Player!!!");
-            currentGun.Shoot();
             attackTimer = enemySO.fireRate;
         }
     }

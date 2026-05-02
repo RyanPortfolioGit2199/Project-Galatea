@@ -19,8 +19,8 @@ TagManager:
   - Environment
   - Obstacles
   - Minimap
-  - 
-  - 
+  - EditorOnly
+  - Particles
   - 
   - 
   - 
