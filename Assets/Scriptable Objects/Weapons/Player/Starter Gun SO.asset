@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Starter Gun SO
   m_EditorClassIdentifier: 
   Damage: 4
-  ShieldDamage: 2
+  ShieldDamage: 8
   IsAutomatic: 0
   CanCharge: 0
   HitVFX: {fileID: 0}

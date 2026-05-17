@@ -1,12 +1,15 @@
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public abstract class HealthSystem : MonoBehaviour
 {
     [SerializeField] private Slider HealthBar;
     [SerializeField] private Slider ShieldBar;
     [SerializeField] bool isBrute;
+    
     
     public float health;
     public float shield;
@@ -86,6 +89,8 @@ public abstract class HealthSystem : MonoBehaviour
             
         }
     }
+
+  
 
     protected abstract void CanRechargeCheck();
     protected abstract void Die();

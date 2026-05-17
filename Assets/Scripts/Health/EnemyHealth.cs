@@ -1,12 +1,13 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class EnemyHealth : HealthSystem
 {
     [SerializeField] EnemySO enemySO;
     
-
+    
+    public static event Action<EnemyHealth> OnEnemyDeath;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -63,9 +64,12 @@ public class EnemyHealth : HealthSystem
     {
         if (health <= 0)
         {
+            OnEnemyDeath?.Invoke(this);
             Debug.Log(name + "says: I am Dead");
             Destroy(this.gameObject);
         }
     }
+
+   
     
 }

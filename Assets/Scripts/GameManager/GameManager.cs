@@ -5,8 +5,10 @@ public class GameManager : MonoBehaviour
 {
     // 1. Create the Singleton instance
     public static GameManager Instance { get; private set; }
-
+    
     [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private GameObject levelCompletedMenu;
+    [SerializeField] GameObject spawnManager;
 
     private void Awake()
     {
@@ -29,5 +31,17 @@ public class GameManager : MonoBehaviour
         gameOverMenu.SetActive(true);
         Time.timeScale = 0;
         Debug.Log("Game Over!!");
+    }
+
+    public void TriggerEnemySpawning()
+    {
+        spawnManager.SetActive(true);
+    }
+
+    public void TriggerLevelCompleted()
+    {
+        levelCompletedMenu.SetActive(true);
+        Time.timeScale = 0;
+        // Add logic here to Save what level I completed and save my currency I got from the enemies in the level.
     }
 }
