@@ -45,15 +45,17 @@ public class ActiveWeapon : MonoBehaviour
 
     }
 
-    public void SwitchWeapon(WeaponSO weaponSO)
+    public void SwitchWeapon(WeaponSO upgradeWeaponSO)
     {
         if (currentGun)
         {
             Destroy(currentGun.gameObject);
         }
+        this.WeaponSO = null;
+        this.WeaponSO = upgradeWeaponSO;
         Gun newGun = Instantiate(WeaponSO.GunPrefab, transform).GetComponent<Gun>();
         currentGun = newGun;
 // this.weaponSO is the weaponSO variable declared at the begining of the script. ///// the other weaponSO is the on I declared at the start of the SwitchWeapon Method
-        this.WeaponSO = weaponSO;
+        
     }
 }

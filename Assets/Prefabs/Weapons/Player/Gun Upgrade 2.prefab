@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 117834499874009496, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 105030a7353ecb5458cb9cbed5084c38, type: 2}
+    - target: {fileID: 117834499874009496, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 105030a7353ecb5458cb9cbed5084c38, type: 2}
     - target: {fileID: 327408274976707419, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_Name
       value: Gun Upgrade 2
@@ -22,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6587454914291426311, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.595
+      value: 0.427
       objectReference: {fileID: 0}
     - target: {fileID: 6587454914291426311, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56,6 +64,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5af8d4cb12082c64caceb0e2b31506a3, type: 2}
+    - target: {fileID: 8563514728809022191, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8933015442593380779, guid: 23d0439f0a588cd4b9ce8b4ca634766c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2

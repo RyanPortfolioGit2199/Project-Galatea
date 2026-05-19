@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f89fde8faf09bf46bdbe84aeec59ea8, type: 3}
-  m_Name: Starter Gun SO
+  m_Name: Gun Upgrade 3
   m_EditorClassIdentifier: 
-  Damage: 2
-  ShieldDamage: 4
+  Damage: 0
+  ShieldDamage: 0
   IsAutomatic: 0
   CanCharge: 0
   HitVFX: {fileID: 0}
-  FireRate: 0.8
-  GunPrefab: {fileID: 1085578376819670403, guid: 9ebfc5d98154d614380b95aabc171b41, type: 3}
+  FireRate: 0
+  GunPrefab: {fileID: 0}

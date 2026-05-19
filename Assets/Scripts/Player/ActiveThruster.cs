@@ -65,8 +65,9 @@ public class ActiveThruster : MonoBehaviour
         {
             Destroy(currentThruster.gameObject);
         }
-        Thruster newThruster = Instantiate(thrusterSO.ThrusterPrefab, transform).GetComponent<Thruster>();
-        currentThruster = newThruster;
+        this.thrusterSO = null;
         this.thrusterSO = thrusterSO;
+        Thruster newThruster = Instantiate(thrusterSO.ThrusterPrefab, transform).GetComponent<Thruster>();
+        currentThruster = newThruster;       
     }
 }
