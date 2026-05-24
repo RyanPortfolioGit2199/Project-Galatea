@@ -50,8 +50,7 @@ public class ActiveWeapon : MonoBehaviour
         if (currentGun)
         {
             Destroy(currentGun.gameObject);
-        }
-        this.WeaponSO = null;
+        }  
         this.WeaponSO = upgradeWeaponSO;
         Gun newGun = Instantiate(WeaponSO.GunPrefab, transform).GetComponent<Gun>();
         currentGun = newGun;

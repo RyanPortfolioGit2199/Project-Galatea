@@ -18,3 +18,4 @@ MonoBehaviour:
   health: 10
   shield: 8
   shieldRechargeRate: 0
+  currencyAmount: 75

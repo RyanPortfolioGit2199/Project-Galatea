@@ -7,7 +7,8 @@ public class EnemyHealth : HealthSystem
     [SerializeField] EnemySO enemySO;
     
     
-    public static event Action<EnemyHealth> OnEnemyDeath;
+    public delegate void OnEnemyDeath();
+    public static OnEnemyDeath onEnemyDeath;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -64,7 +65,8 @@ public class EnemyHealth : HealthSystem
     {
         if (health <= 0)
         {
-            OnEnemyDeath?.Invoke(this);
+            onEnemyDeath?.Invoke();
+            CurrencyManager.Instance.GainedCurrency(enemySO.currencyAmount);
             Debug.Log(name + "says: I am Dead");
             Destroy(this.gameObject);
         }

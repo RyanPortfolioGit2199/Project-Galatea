@@ -3,29 +3,29 @@ using System;
 
 public class LevelOneObjective : ObjectiveScripte
 {
-    public HealthSystem unitToWatch;
+    
     private int enemiesKilled = 0;
     private int enemiesToKill = 5;
 
     void OnEnable()
     {
-        EnemyHealth.OnEnemyDeath += EnemiesKilled;
+        EnemyHealth.onEnemyDeath += EnemiesKilled;
         
         
     }
 
     private void OnDisable()
     {
-        EnemyHealth.OnEnemyDeath -= EnemiesKilled;
+        EnemyHealth.onEnemyDeath -= EnemiesKilled;
 
     }
 
-    void EnemiesKilled(EnemyHealth data)
+    void EnemiesKilled()
     {
         if(enemiesKilled < enemiesToKill)
         {
             enemiesKilled++;
-            Debug.Log("Enemy died: " + data.name + "EnemiesKilled: " + enemiesKilled);
+            Debug.Log(name +"EnemiesKilled: " + enemiesKilled);
         }
 
         if (enemiesKilled >= enemiesToKill)

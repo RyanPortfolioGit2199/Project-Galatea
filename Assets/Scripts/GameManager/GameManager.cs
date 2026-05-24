@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-
+        DontDestroyOnLoad(gameObject);
         Time.timeScale = 1;
     }
 
@@ -43,5 +43,6 @@ public class GameManager : MonoBehaviour
         levelCompletedMenu.SetActive(true);
         Time.timeScale = 0;
         // Add logic here to Save what level I completed and save my currency I got from the enemies in the level.
+
     }
 }
