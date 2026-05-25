@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class CurrencyManager : MonoBehaviour
 {
@@ -22,13 +23,21 @@ public class CurrencyManager : MonoBehaviour
             Instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        
+    /*
+        if(File.Exists(Application.persistentDataPath + "/savefile.json"))
+        {
+            
+        }
+        */
     }
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        GainedCurrency(SaveManager.Instance.SavedCurrency);
     }
 
     // Update is called once per frame

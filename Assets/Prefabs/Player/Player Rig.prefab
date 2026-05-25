@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6125598476663370611}
   - component: {fileID: 6897964564071954949}
   - component: {fileID: 1741020032107638048}
+  - component: {fileID: 2227443508573846337}
+  - component: {fileID: 6531422572134147887}
   m_Layer: 7
   m_Name: Player Rig
   m_TagString: Untagged
@@ -53,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 10
-  moveSpeed: 5
+  moveSpeed: 10
   moveDirection: {x: 0, y: 0, z: 0}
 --- !u!143 &6125598476663370611
 CharacterController:
@@ -65,7 +67,7 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -74,7 +76,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 0
-  m_Radius: 1.78
+  m_Radius: 2.21
   m_SlopeLimit: 0
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -93,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 4cd4308641efd71449dae6cb18ffa76a, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -104,7 +106,87 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1741020032107638048}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 73e7d790-33a2-4f80-8f4a-01ce340e17b4
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1741020032107638048}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e2da8657-b35a-45d4-9f57-94f6d27ac505
+    m_ActionName: 'Player/MenuStartup[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1741020032107638048}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnDebugMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1cc978f8-63c5-4fe2-b8e6-9e3524bf8fbc
+    m_ActionName: 'Player/DebugMenu[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1741020032107638048}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5dcf9184-fbbb-4e02-bfb8-a4e0e83ef86d
+    m_ActionName: 'Player/Shoot[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1741020032107638048}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnDodge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8d12a0a2-2fcf-4aea-a7d2-a578feadfd68
+    m_ActionName: 'Player/Dodge[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -127,6 +209,52 @@ MonoBehaviour:
   shoot: 0
   dodge: 0
   pause: 0
+--- !u!136 &2227443508573846337
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558148741146824426}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.26
+  m_Height: 3.95
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6531422572134147887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558148741146824426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c94974e95125db4b8fb727d4c014fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBar: {fileID: 0}
+  ShieldBar: {fileID: 0}
+  isBrute: 0
+  health: 0
+  shield: 0
+  maxHealth: 0
+  maxShield: 0
+  gotShot: 0
+  canRecharge: 0
+  activeShield: {fileID: 411424419121550498}
+  PlayerHealthsSO: {fileID: 11400000, guid: 645b6ff3bf40c114c97e87771172a797, type: 2}
 --- !u!1 &1599545037744646638
 GameObject:
   m_ObjectHideFlags: 0

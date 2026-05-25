@@ -12,7 +12,6 @@ public class SaveManager : MonoBehaviour
     public int SavedPlayerShield;
     public int SavedPlayerThruster;
 
-
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,6 +23,8 @@ public class SaveManager : MonoBehaviour
             Instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        LoadCurrency();
     }
     
     [System.Serializable]
@@ -46,13 +47,24 @@ public class SaveManager : MonoBehaviour
         
     }
 
-    public void SaveCurrency()
+    public void SaveCurrency(int currentCurrency)
     {
-        
+        SaveData data = new SaveData();
+        data.SavedCurrency = currentCurrency;
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
     public void LoadCurrency()
     {
-        
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            SavedCurrency = data.SavedCurrency;
+        }
     }
 }

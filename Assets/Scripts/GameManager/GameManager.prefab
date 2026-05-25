@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e701ed297400ff4989ca4ef6efa64a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuScene: 0
+  upgradesLevel: 2
 --- !u!1 &1428210438440434876
 GameObject:
   m_ObjectHideFlags: 0

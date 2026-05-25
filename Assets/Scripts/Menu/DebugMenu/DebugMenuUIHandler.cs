@@ -7,8 +7,8 @@ public class DebugMenuUIHandler : MonoBehaviour
     
     [SerializeField] GameObject debuglevelMenu;
     [SerializeField] GameObject debugMenu;
-
     [SerializeField] GameObject debugUpgradeMenu;
+    [SerializeField] GameObject debugSaveMenu;
 
     public void DebugLevelMenu()
     {
@@ -20,5 +20,11 @@ public class DebugMenuUIHandler : MonoBehaviour
     {
         debugMenu.SetActive(false);
         debugUpgradeMenu.SetActive(true);
+    }
+
+    public void DebugSaveMenu()
+    {
+        debugMenu.SetActive(false);
+        debugSaveMenu.SetActive(true);
     }
 }
