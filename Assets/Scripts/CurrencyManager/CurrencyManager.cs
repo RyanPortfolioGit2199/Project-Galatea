@@ -25,12 +25,6 @@ public class CurrencyManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         
-    /*
-        if(File.Exists(Application.persistentDataPath + "/savefile.json"))
-        {
-            
-        }
-        */
     }
     
 

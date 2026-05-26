@@ -347,8 +347,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PauseUIHandler, Assembly-CSharp
+      - m_Target: {fileID: 760831469921376497}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ExitToMenu
         m_Mode: 1
         m_Arguments:

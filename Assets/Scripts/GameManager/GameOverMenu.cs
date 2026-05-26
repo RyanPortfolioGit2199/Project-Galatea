@@ -20,12 +20,14 @@ public class GameOverMenu : MonoBehaviour
     public void ExitToMenu()
     {
         Debug.Log("Exit Back out to Main Menu");
+        this.gameObject.SetActive(false);
         SceneManager.LoadScene(mainMenuScene);
     }
 
     public void RetryLevel()
     {
         Debug.Log("Retrying Level");
+        this.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

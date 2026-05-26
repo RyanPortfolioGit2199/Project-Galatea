@@ -1745,5 +1745,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverMenu: {fileID: 4697956059606017243}
-  levelCompletedMenu: {fileID: 0}
+  levelCompletedMenu: {fileID: 518016141042629472}
   spawnManager: {fileID: 0}
