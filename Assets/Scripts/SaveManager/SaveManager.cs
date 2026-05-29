@@ -1,16 +1,24 @@
 using UnityEngine;
 using System.IO;
 
+
+    [System.Serializable]
+    
+ 
+    public class SaveData
+    {
+        public int SavedLevel;
+        public int SavedCurrency;
+        public int SavedPlayerWeapon;
+        public int SavedPlayerShield;
+        public int SavedPlayerThruster;
+    }
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance {get; private set;}
 
-    [Header("Save Data")]
-    public int SavedLevel;
-    public int SavedCurrency;
-    public int SavedPlayerWeapon;
-    public int SavedPlayerShield;
-    public int SavedPlayerThruster;
+    public SaveData saveData = new SaveData();
+    private string savePath;
 
     void Awake()
     {
@@ -24,47 +32,38 @@ public class SaveManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        LoadCurrency();
-    }
-    
-    [System.Serializable]
-    class SaveData
-    {
-        public int SavedLevel;
-        public int SavedCurrency;
-        public int SavedPlayerWeapon;
-        public int SavedPlayerShield;
-        public int SavedPlayerThruster;
+        savePath = Path.Combine(Application.persistentDataPath, "savefile.json");
+
+        LoadGame();
     }
 
-    public void SaveLevel()
+    public void UpdateLevel()
     {
-        
+        SaveGame();
     }
 
-    public void LoadLevel()
+    public void UpdateUpgrades(int weapon, int shield, int thruster)
     {
-        
+        SaveGame();
     }
 
-    public void SaveCurrency(int currentCurrency)
+    public void UpdateCurrency(int amount)
     {
-        SaveData data = new SaveData();
-        data.SavedCurrency = currentCurrency;
-
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        SaveGame();
     }
 
-    public void LoadCurrency()
+    public void SaveGame()
     {
-        string path = Application.persistentDataPath + "/savefile.json";
-        if (File.Exists(path))
+        string json = JsonUtility.ToJson(saveData);
+        File.WriteAllText(savePath, json);
+    }
+
+    public void LoadGame()
+    {
+        if (File.Exists(savePath))
         {
-            string json = File.ReadAllText(path);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-            SavedCurrency = data.SavedCurrency;
+            string json = File.ReadAllText(savePath);
+            saveData = JsonUtility.FromJson<SaveData>(json);
         }
     }
 }
