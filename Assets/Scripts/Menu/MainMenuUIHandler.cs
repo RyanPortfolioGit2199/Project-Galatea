@@ -24,15 +24,15 @@ public class MainMenuUIHandler : MonoBehaviour
     public void DebugMenu()
     {
         Debug.Log("Open Debug Level Picker");
-        mainMenu.SetActive(false);
-        debugMenu.SetActive(true);
+        //mainMenu.SetActive(false);
+        DebugManager.Instance.MainMenuOpen();
     }
 
     public void Exit()
     {
         
 
-        // # are for conditional compiling. With the # code wont be compiled and executed they are instructions for the compiler. It is used branch the code based on where the code is compiled — in the Editor, or for a build
+        // # are for conditional compiling. With the # code wont be compiled and executed they are instructions for the compiler. It is used branch the code based on where the code is compiled ï¿½ in the Editor, or for a build
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else

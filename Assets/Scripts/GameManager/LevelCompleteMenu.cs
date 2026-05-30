@@ -12,14 +12,16 @@ public class LevelCompleteMenu : MonoBehaviour
     {
         Debug.Log("Exit Back out to Main Menu");
         SceneManager.LoadScene(mainMenuScene);
-        SaveManager.Instance.SaveCurrency(CurrencyManager.Instance.currency);
+        SaveManager.Instance.UpdateCurrency(CurrencyManager.Instance.currency);
+        this.gameObject.SetActive(false);
     }
 
     public void ContinueToUpgradeMenu()
     {
         Debug.Log("To the Upgrade Menu");
         SceneManager.LoadScene(upgradesLevel);
-        SaveManager.Instance.SaveCurrency(CurrencyManager.Instance.currency);
+        SaveManager.Instance.UpdateCurrency(CurrencyManager.Instance.currency);
         this.gameObject.SetActive(false);
+        
     }
 }

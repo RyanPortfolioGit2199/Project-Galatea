@@ -27,4 +27,9 @@ public class DebugMenuUIHandler : MonoBehaviour
         debugMenu.SetActive(false);
         debugSaveMenu.SetActive(true);
     }
+
+    public void ExitDebugMenu()
+    {
+        debugMenu.SetActive(false);
+    }
 }

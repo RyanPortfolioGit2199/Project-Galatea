@@ -2140,6 +2140,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 964202805822354930, guid: 37ae8d57a0075304a9588c13d61002bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1456741278463669989, guid: 37ae8d57a0075304a9588c13d61002bd, type: 3}
       propertyPath: m_Name
       value: CurrencyManager

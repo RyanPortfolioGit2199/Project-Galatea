@@ -36,6 +36,7 @@ public class SaveManager : MonoBehaviour
 
         LoadGame();
     }
+    
 
     public void UpdateLevel()
     {
@@ -49,6 +50,7 @@ public class SaveManager : MonoBehaviour
 
     public void UpdateCurrency(int amount)
     {
+        saveData.SavedCurrency = amount;
         SaveGame();
     }
 

@@ -14,4 +14,9 @@ public class DebugSaveUIHandler : MonoBehaviour
             debugSaveMenu.SetActive(false);
         }
     }
+
+    public void ExitDebugMenu()
+    {
+        debugSaveMenu.SetActive(false);
+    }
 }

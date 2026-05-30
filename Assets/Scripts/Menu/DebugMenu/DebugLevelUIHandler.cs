@@ -30,6 +30,6 @@ public class DebugLevelUIHandler : MonoBehaviour
     public void ExitToDebugMenu()
     {
         Debug.Log("Exit Back out DebugMenu");
-        
+        debugLevelMenu.SetActive(false);
     }
 }
