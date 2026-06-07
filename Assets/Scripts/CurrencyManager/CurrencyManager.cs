@@ -73,8 +73,10 @@ public class CurrencyManager : MonoBehaviour
         {
             currencyText.enabled = true;
         }
+
         
-        GainedCurrency(SaveManager.Instance.saveData.SavedCurrency);
+        
+        //GainedCurrency(SaveManager.Instance.saveData.SavedCurrency);
     }
     
 

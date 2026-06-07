@@ -45,6 +45,10 @@ public class SaveManager : MonoBehaviour
 
     public void UpdateUpgrades(int weapon, int shield, int thruster)
     {
+        saveData.SavedPlayerWeapon = weapon;
+        saveData.SavedPlayerShield = shield;
+        saveData.SavedPlayerThruster = thruster;
+
         SaveGame();
     }
 

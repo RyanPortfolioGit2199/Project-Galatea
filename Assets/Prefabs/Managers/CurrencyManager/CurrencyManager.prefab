@@ -284,4 +284,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currencyText: {fileID: 2506200373614927526}
+  textObject: {fileID: 1171940347375319637}
   currency: 0

@@ -13,7 +13,7 @@ public class GunUpgradeMenu : MonoBehaviour
     public void GunUpgrade1()
     {
         Debug.Log("Gun Upgrade 1");
-        activeWeapon.SwitchWeapon(weaponSO[0]);
+        UpgradeManager.Instance.UpgradeWeapon(1);
     }
 
     public void GunUpgrade2()
