@@ -4905,6 +4905,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2227443508573846337, guid: 6c73d9be86b44b540bf692942da8cada, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 6531422572134147887, guid: 6c73d9be86b44b540bf692942da8cada, type: 3}
       propertyPath: HealthBar
       value: 

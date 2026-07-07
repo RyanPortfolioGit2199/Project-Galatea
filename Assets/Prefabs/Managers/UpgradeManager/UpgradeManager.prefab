@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDebugScene: 1
-  weaponSO:
-  - {fileID: 11400000, guid: 712bf85cc1a299d4f9d82d163a88669e, type: 2}
-  shieldSO: []
-  thrusterSO: []
+  <weaponSOList>k__BackingField:
+  - {fileID: 11400000, guid: e6414090501b0b24fb509cddc239b45c, type: 2}
+  - {fileID: 11400000, guid: 768d0a8aaf2740a4a9a270c57b600af9, type: 2}
+  <shieldSOList>k__BackingField:
+  - {fileID: 11400000, guid: a4d88f71a9cd56341a2e82c7f86024db, type: 2}
+  - {fileID: 11400000, guid: 82736698b56d4b944bf4666e78a1b36a, type: 2}
+  <thrusterSOList>k__BackingField:
+  - {fileID: 11400000, guid: d4e9eae6bc8a38348b4f17292c7c5c6b, type: 2}
+  - {fileID: 11400000, guid: bde65af84d3b58c419aed0055bec6405, type: 2}

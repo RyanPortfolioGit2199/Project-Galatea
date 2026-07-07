@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuScene: 0
-  upgradesLevel: 2
+  upgradesLevel: 3
 --- !u!1 &1428210438440434876
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class CurrencyManager : MonoBehaviour
     Scene currentScene;
     int mainMenuScene;
 
-    public int currency;
+    public float currency;
 
     void Awake()
     {
@@ -92,9 +92,16 @@ public class CurrencyManager : MonoBehaviour
         
     }
 
-    public void GainedCurrency(int amount)
+    public void GainedCurrency(float amount)
     {
         currency += amount;
+        currencyText.SetText("$ " + currency);
+    }
+
+    public void SpentCurrency(float amount)
+    {
+        currency -= amount;
+        currency = Mathf.Max(currency, 0);
         currencyText.SetText("$ " + currency);
     }
 }

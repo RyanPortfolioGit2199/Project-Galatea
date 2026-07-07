@@ -10,7 +10,7 @@ public class ActiveWeapon : MonoBehaviour
 
 
     [Header("References")]
-    public WeaponSO WeaponSO;
+    public UpgradesSO upgradesSO;
 
     
 
@@ -36,23 +36,23 @@ public class ActiveWeapon : MonoBehaviour
 
         if(!playerInputScript.shoot)  return;
 
-        if(timeSinceLastShot >= WeaponSO.FireRate)
+        if(timeSinceLastShot >= upgradesSO.FireRate)
         {
             
-            currentGun.Shoot(WeaponSO);
+            currentGun.Shoot(upgradesSO);
             timeSinceLastShot = 0f;
         }
 
     }
 
-    public void SwitchWeapon(WeaponSO upgradeWeaponSO)
+    public void SwitchWeapon(UpgradesSO upgradeWeaponSO)
     {
         if (currentGun)
         {
             Destroy(currentGun.gameObject);
         }  
-        this.WeaponSO = upgradeWeaponSO;
-        Gun newGun = Instantiate(WeaponSO.GunPrefab, transform).GetComponent<Gun>();
+        this.upgradesSO = upgradeWeaponSO;
+        Gun newGun = Instantiate(upgradesSO.GunPrefab, transform).GetComponent<Gun>();
         currentGun = newGun;
 // this.weaponSO is the weaponSO variable declared at the begining of the script. ///// the other weaponSO is the on I declared at the start of the SwitchWeapon Method
         

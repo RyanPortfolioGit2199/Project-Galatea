@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e986c6caec561c448196a290fa66f1c, type: 3}
   m_Name: ThrusterUpgrade 1
   m_EditorClassIdentifier: 
+  ThrusterID: 1
   ThrusterSpeed: 0
   DodgeRechargeRate: 10
   ThrusterPrefab: {fileID: 6672805413194271273, guid: 41b5db7a447035745a2ca4597a3186b8, type: 3}

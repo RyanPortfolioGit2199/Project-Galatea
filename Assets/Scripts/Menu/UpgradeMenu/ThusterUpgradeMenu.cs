@@ -4,7 +4,7 @@ public class ThusterUpgradeMenu : MonoBehaviour
 {
     [SerializeField] GameObject upgradeMenu;
 
-    [SerializeField] ThrusterSO[] thrusterSO;
+    [SerializeField] UpgradesSO[] thrusterSO;
 
     ActiveThruster activeThruster;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,10 +13,19 @@ public class ThusterUpgradeMenu : MonoBehaviour
     {
         activeThruster = FindAnyObjectByType<ActiveThruster>();
     }
+
+    public void BaseThruster()
+    {
+        Debug.Log("Selected Base Thruster");
+        UpgradeManager.Instance.UpgradeThruster(0);
+        PurchaseManager.Instance.PurchasingCalculations(UpgradeManager.Instance.thrusterSOList[0]);
+    }
+
     public void ThusterUpgrade1()
     {
         Debug.Log("Selected Thruster Upgrade 1");
-       activeThruster.SwitchThruster(thrusterSO[0]);
+        UpgradeManager.Instance.UpgradeThruster(1);
+        PurchaseManager.Instance.PurchasingCalculations(UpgradeManager.Instance.thrusterSOList[1]);
     }
 
     public void ThusterUpgrade2()
@@ -31,6 +40,9 @@ public class ThusterUpgradeMenu : MonoBehaviour
 
     public void BackToUpgradeMenu()
     {
+        UpgradeManager.Instance.UpgradeWeapon(SaveManager.Instance.saveData.SavedPlayerThruster);
+        PurchaseManager.Instance.GetCurrency();
+        PurchaseManager.Instance.canBuy = false;
         this.gameObject.SetActive(false);
         upgradeMenu.SetActive(true);
         

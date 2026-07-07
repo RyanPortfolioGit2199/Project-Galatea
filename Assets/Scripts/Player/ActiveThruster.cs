@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class ActiveThruster : MonoBehaviour
 {
-    [SerializeField] ThrusterSO thrusterSO;
+    [SerializeField] UpgradesSO thrusterSO;
     public bool canDodge = true;
     Thruster currentThruster;
     
@@ -59,7 +59,7 @@ public class ActiveThruster : MonoBehaviour
         
     }
 
-    public void SwitchThruster(ThrusterSO thrusterSO)
+    public void SwitchThruster(UpgradesSO thrusterSO)
     {
         if (currentThruster)
         {

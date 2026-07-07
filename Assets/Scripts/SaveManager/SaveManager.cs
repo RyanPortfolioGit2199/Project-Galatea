@@ -1,17 +1,23 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 
-    [System.Serializable]
+[System.Serializable]
     
  
     public class SaveData
     {
         public int SavedLevel;
-        public int SavedCurrency;
+        public float SavedCurrency;
         public int SavedPlayerWeapon;
         public int SavedPlayerShield;
         public int SavedPlayerThruster;
+        
+
+        public List<int> OwnedWeapons = new List<int>();
+        public List<int> OwnedThrusters = new List<int>();
+        public List<int> OwnedShields = new List<int>();
     }
 public class SaveManager : MonoBehaviour
 {
@@ -38,8 +44,9 @@ public class SaveManager : MonoBehaviour
     }
     
 
-    public void UpdateLevel()
+    public void UpdateLevel(int level)
     {
+        saveData.SavedLevel = level;
         SaveGame();
     }
 
@@ -52,7 +59,28 @@ public class SaveManager : MonoBehaviour
         SaveGame();
     }
 
-    public void UpdateCurrency(int amount)
+    public void UpdateOwnedWeapons(int weaponID)
+    {
+        saveData.OwnedWeapons.Add(weaponID);
+
+        SaveGame();
+    }
+
+    public void UpdateOwnedThrusters(int thrusterID)
+    {
+        saveData.OwnedThrusters.Add(thrusterID);
+
+        SaveGame();
+    }
+
+    public void UpdateOwnedShields(int shieldID)
+    {
+        saveData.OwnedShields.Add(shieldID);
+
+        SaveGame();
+    }
+
+    public void UpdateCurrency(float amount)
     {
         saveData.SavedCurrency = amount;
         SaveGame();

@@ -5,8 +5,8 @@ public class DebugLevelUIHandler : MonoBehaviour
 {
     [SerializeField] GameObject debugLevelMenu;
 
-    int playerDbLevel = 1;
-    int upgradesLevel = 2;
+    [SerializeField] int playerDbLevel = 2;
+    [SerializeField] int upgradesLevel = 3;
 
     public void PlayerDBLevel()
     {

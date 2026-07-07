@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072c66c5af7a55f41a78c06d4f4253b3, type: 3}
+  m_Name: (New)StarterGun
+  m_EditorClassIdentifier: 
+  upgradeType: 0
+  WeaponID: 0
+  WeaponCost: 0
+  Damage: 2
+  ShieldDamage: 4
+  IsAutomatic: 0
+  CanCharge: 0
+  HitVFX: {fileID: 0}
+  FireRate: 0.8
+  GunPrefab: {fileID: 1085578376819670403, guid: 9ebfc5d98154d614380b95aabc171b41, type: 3}
+  ThrusterID: 0
+  ThrusterCost: 0
+  ThrusterSpeed: 0
+  DodgeRechargeRate: 0
+  ThrusterPrefab: {fileID: 0}
+  dodgeAmount: 0
+  ShieldID: 0
+  ShieldCost: 0
+  ShieldAmount: 0
+  RechargeRate: 0
+  ShieldPrefab: {fileID: 0}

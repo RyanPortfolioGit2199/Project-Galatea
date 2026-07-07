@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class Gun : MonoBehaviour
 {
     Scene currentScene;
-    int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
+    int UpgradeScene = 3; // Change if the UpgradeScene gets changed in the Scene List
     ParticleSystem bulletParticle;
     ActiveWeapon activeWeapon;
     public float shieldDamage;
@@ -22,8 +22,8 @@ public class Gun : MonoBehaviour
 
         
 
-        shieldDamage = activeWeapon.WeaponSO.ShieldDamage;
-        healthDamage = activeWeapon.WeaponSO.Damage;
+        shieldDamage = activeWeapon.upgradesSO.ShieldDamage;
+        healthDamage = activeWeapon.upgradesSO.Damage;
         
     }
 
@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour
         
     }
 
-    public void Shoot (WeaponSO weaponSO)
+    public void Shoot (UpgradesSO weaponSO)
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player cant shoot in the Upgrade menu.
         

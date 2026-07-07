@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f89fde8faf09bf46bdbe84aeec59ea8, type: 3}
   m_Name: Gun Upgrade 2
   m_EditorClassIdentifier: 
+  WeaponID: 1
+  Cost: 100
   Damage: 4
   ShieldDamage: 6
   IsAutomatic: 0

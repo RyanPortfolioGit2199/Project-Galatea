@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+public static LevelManager Instance {get; private set;}
+
     [SerializeField] GameObject[] levelObjectives;
     [SerializeField] int levelObjectiveNeeded;
     
@@ -10,6 +13,19 @@ public class LevelManager : MonoBehaviour
     const int Level2 = 2;
     const int Level3 = 3;
     const int Level4 = 4;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -27,6 +43,17 @@ public class LevelManager : MonoBehaviour
 
         levelObjectiveNeeded = currentLevel;
         InstantiateObjective();
+    }
+
+    public void LoadLevel(int levelToLoad)
+    {
+        SceneManager.LoadScene(levelToLoad);
+    }
+
+    public void SetCurrentLevel(int level)
+    {
+        level += 1;
+        SaveManager.Instance.UpdateLevel(level);
     }
 
     private void InstantiateObjective()

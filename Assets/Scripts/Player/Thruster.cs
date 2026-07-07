@@ -27,7 +27,7 @@ public class Thruster : MonoBehaviour
 
  
 
-    public IEnumerator DodgeDuration(ThrusterSO thrusterSO)
+    public IEnumerator DodgeDuration(UpgradesSO thrusterSO)
     {
         float time = 0;
         while(time < dodgeDurationAmount)

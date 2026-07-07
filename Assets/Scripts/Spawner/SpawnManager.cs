@@ -22,6 +22,8 @@ public class SpawnManager : MonoBehaviour
     public bool canSpawn;
 
     private float spawnTimer;
+
+    public
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,14 +37,29 @@ public class SpawnManager : MonoBehaviour
 
         if (spawnTimer >= spawnTime)
         {
-            RandomSpawner();
-            SpawnGrunt();
-            SpawnBrute();
-            SpawnSniper();
+
         }
 
         // need to replace later to add the enemies spawned to a list to save on performance and possiblly used as a fail safe on to many enemies of 1 type being spawned when I dont want it too.
         enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length; // finds the amount(Length) of enemies in the scene 
+    }
+
+    public void SpawnTriggering()
+    {
+        InvokeRepeating(nameof(SpawningMethods), startDelay, spawnTime);
+    }
+
+    public void StopSpawning()
+    {
+        CancelInvoke();
+    }
+
+    public void SpawningMethods()
+    {
+        RandomSpawner();
+        SpawnGrunt();
+        SpawnBrute();
+        SpawnSniper();       
     }
 
     int RandomSpawner() // Did this in a seperate method for optimization purposes (not needed because its a small calculation but better to get into the mindset) to only generate a random spawner location when its needed to spwan an enemy.

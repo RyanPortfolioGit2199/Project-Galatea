@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ActiveShield : MonoBehaviour
 {
-    public ShieldSO shieldSO;
+    public UpgradesSO shieldSO;
     
 
     Shield currentShield;
@@ -19,13 +19,13 @@ public class ActiveShield : MonoBehaviour
         
     }
 
-    public void SwitchShield(ShieldSO shieldSO)
+    public void SwitchShield(UpgradesSO shieldSO)
     {
         if (currentShield)
         {
             Destroy(currentShield.gameObject);
         }
-        Shield newShield = Instantiate(shieldSO.ShieldPrfab, transform).GetComponent<Shield>();
+        Shield newShield = Instantiate(shieldSO.ShieldPrefab, transform).GetComponent<Shield>();
         currentShield = newShield;
         this.shieldSO = shieldSO;
     }

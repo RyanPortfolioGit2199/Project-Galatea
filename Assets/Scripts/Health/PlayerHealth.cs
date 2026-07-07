@@ -22,8 +22,10 @@ public class PlayerHealth : HealthSystem
     
     public void OnParticleCollision(GameObject other)
     {
-        
-        EnemyGun particleInfo = other.GetComponent<EnemyGun>();
+        // look into the player shooting themselves
+        try
+        {
+            EnemyGun particleInfo = other.GetComponent<EnemyGun>();
         Debug.Log("Player says: Ouchie I took Shield Damage: "+ particleInfo.shieldDamage + "and health damage: " + particleInfo.healthDamage);
         if(particleInfo != null)
         {
@@ -39,6 +41,12 @@ public class PlayerHealth : HealthSystem
             
         }
         
+        }
+        catch (System.Exception)
+        {
+            
+            Debug.Log("I shot myself");
+        }
     }   
 
     protected override void Die()

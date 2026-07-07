@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b0eca7ca25cc547a597a787741545f, type: 3}
   m_Name: Shield Upgrade 1
   m_EditorClassIdentifier: 
+  ShieldID: 1
   ShieldAmount: 12
   RechargeRate: 10
   ShieldPrfab: {fileID: 1195101150149991320, guid: 8ba7078b89772aa4390e978ed13ef647, type: 3}

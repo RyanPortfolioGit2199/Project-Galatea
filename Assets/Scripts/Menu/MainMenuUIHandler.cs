@@ -2,23 +2,35 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuUIHandler : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject debugMenu;
+    [SerializeField] Button continueButton;
+
+    void Start()
+    {
+        if(GameManager.Instance.CurrentLevel == 0)
+        {
+            continueButton.interactable = false;
+        }
+    }
 
     public void StartNew()
     {
         // SceneManager is the class that handles everything related to loading and unloading scenes
         //SceneManager.LoadScene(1); //The LoadScene parameter is a number, It is the index of the scene that you want to load. A scene's index is defined in the Build Settings window.
         Debug.Log("Start a New Game");
+        GameManager.Instance.SetNewGame();
     }
 
     public void Continue()
     {
         Debug.Log("Continue if an existing Save Data Exits");
+        GameManager.Instance.ContinueGame();
     }
 
     public void DebugMenu()

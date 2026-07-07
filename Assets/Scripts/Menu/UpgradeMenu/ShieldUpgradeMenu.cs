@@ -4,7 +4,7 @@ public class ShieldUpgradeMenu : MonoBehaviour
 {
     [SerializeField] GameObject upgradeMenu;
 
-    [SerializeField] ShieldSO[] shieldSO;
+    [SerializeField] UpgradesSO[] shieldSO;
 
     ActiveShield activeShield;
 
@@ -20,11 +20,18 @@ public class ShieldUpgradeMenu : MonoBehaviour
         
     }
 
+    public void BaseUpgrade()
+    {
+        Debug.Log("Selected Base Shield");
+        UpgradeManager.Instance.UpgradeShield(0);
+        PurchaseManager.Instance.PurchasingCalculations(shieldSO[0]);
+    }
 
     public void ShieldUpgrade1()
     {
         Debug.Log("Selected Shield Upgrade 1");
-        activeShield.SwitchShield(shieldSO[0]);
+        UpgradeManager.Instance.UpgradeShield(1);
+        PurchaseManager.Instance.PurchasingCalculations(shieldSO[1]);
     }
 
     public void ShieldUpgrade2()
@@ -39,6 +46,9 @@ public class ShieldUpgradeMenu : MonoBehaviour
 
     public void BackToUpgradeMenu()
     {
+        UpgradeManager.Instance.UpgradeWeapon(SaveManager.Instance.saveData.SavedPlayerShield);
+        PurchaseManager.Instance.GetCurrency();
+        PurchaseManager.Instance.canBuy = false;
         this.gameObject.SetActive(false);
         upgradeMenu.SetActive(true);
         

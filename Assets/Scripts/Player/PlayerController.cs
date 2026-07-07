@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     CharacterController playerController;
     Scene currentScene;
-    int UpgradeScene = 2; // Change if the UpgradeScene gets changed in the Scene List
+    int UpgradeScene = 3; // Change if the UpgradeScene gets changed in the Scene List
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()

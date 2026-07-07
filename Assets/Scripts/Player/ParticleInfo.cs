@@ -10,8 +10,8 @@ public class ParticleInfo : MonoBehaviour
     {
         activeWeapon = GetComponentInParent<ActiveWeapon>();
 
-        shieldDamage = activeWeapon.WeaponSO.ShieldDamage;
-        healthDamage = activeWeapon.WeaponSO.Damage;
+        shieldDamage = activeWeapon.upgradesSO.ShieldDamage;
+        healthDamage = activeWeapon.upgradesSO.Damage;
     }
 
     
