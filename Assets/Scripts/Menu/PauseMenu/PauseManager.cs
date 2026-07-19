@@ -10,10 +10,10 @@ public class PauseManager : MonoBehaviour
 {
     public static PauseManager Instance;
 
-    [SerializeField] bool isPaused;
+    [field: SerializeField] public bool isPaused {get; private set;}
 
 
-    [SerializeField] GameObject pauseMenu;
+    public GameObject pauseMenu;
 
 
     PlayerInputScript playerInputScript;
@@ -64,6 +64,12 @@ public class PauseManager : MonoBehaviour
         }
     
 
+    }
+
+    public void OptionsButton()
+    {
+        GraphicsManager.Instance.GraphicsMenuToggle(true);
+        //pauseMenu.SetActive(false);
     }
 
     public void ExitToMenu()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [System.Serializable]
     
  
-    public class SaveData
+    public class GameSaveData
     {
         public int SavedLevel;
         public float SavedCurrency;
@@ -19,12 +19,21 @@ using System.Collections.Generic;
         public List<int> OwnedThrusters = new List<int>();
         public List<int> OwnedShields = new List<int>();
     }
+
+    public class SettingsSaveData
+    {
+        public int SavedResolution;
+        public int SavedFPS;
+        public bool SavedVsync;
+    }
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance {get; private set;}
 
-    public SaveData saveData = new SaveData();
+    public GameSaveData saveData = new GameSaveData();
+    public SettingsSaveData settingsSaveData = new SettingsSaveData();
     private string savePath;
+    private string settingsPath;
 
     void Awake()
     {
@@ -39,11 +48,13 @@ public class SaveManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         savePath = Path.Combine(Application.persistentDataPath, "savefile.json");
+        settingsPath = Path.Combine(Application.persistentDataPath, "settings.json");
 
         LoadGame();
+        LoadSettings();
     }
     
-
+    // Game Save Data Logic Start
     public void UpdateLevel(int level)
     {
         saveData.SavedLevel = level;
@@ -97,7 +108,46 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
-            saveData = JsonUtility.FromJson<SaveData>(json);
+            saveData = JsonUtility.FromJson<GameSaveData>(json);
         }
     }
+
+    // Game Save Data Logic End
+
+
+    // Settings Save Data Logic Start
+
+    public void UpdateResolution(int resolutionID)
+    {
+        settingsSaveData.SavedResolution = resolutionID;
+        SaveSettings();
+    }
+
+    public void UpdateMaxFPS(int fpsID)
+    {
+        settingsSaveData.SavedFPS = fpsID;
+        SaveSettings();
+    }
+
+    public void UpdateVsyncToggle(bool toggleValue)
+    {
+        settingsSaveData.SavedVsync = toggleValue;
+    }
+
+    public void SaveSettings()
+    {
+        string json = JsonUtility.ToJson(settingsSaveData);
+        File.WriteAllText(settingsPath, json);
+    }
+
+    public void LoadSettings()
+    {
+        if (File.Exists(settingsPath))
+        {
+            string json = File.ReadAllText(settingsPath);
+            settingsSaveData = JsonUtility.FromJson<SettingsSaveData>(json);
+        }
+    }
+
+    // Settings Save Data Logic End
 }

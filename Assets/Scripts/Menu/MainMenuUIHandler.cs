@@ -40,6 +40,11 @@ public class MainMenuUIHandler : MonoBehaviour
         DebugManager.Instance.MainMenuOpen();
     }
 
+    public void OptionsButton()
+    {
+        GraphicsManager.Instance.GraphicsMenuToggle(true);
+    }
+
     public void Exit()
     {
         
