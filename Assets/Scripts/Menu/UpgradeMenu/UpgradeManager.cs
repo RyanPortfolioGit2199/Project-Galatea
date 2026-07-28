@@ -116,10 +116,14 @@ public class UpgradeManager : MonoBehaviour
 
             case WeaponUpgrade2:
             Debug.Log("Added Weapon Upgrade 2 to Player");
+            activeWeapon.SwitchWeapon(weaponSOList[2]);
+            setPlayerWeapon = 2;
             break;
 
             case WeaponUpgrade3:
             Debug.Log("Added Weapon Upgrade 3 to Player");
+            activeWeapon.SwitchWeapon(weaponSOList[3]);
+            setPlayerWeapon = 3;
             break;
         }
     }

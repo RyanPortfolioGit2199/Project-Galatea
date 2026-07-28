@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 072c66c5af7a55f41a78c06d4f4253b3, type: 3}
-  m_Name: (New)StarterGun
+  m_Name: (New)Gun Upgrade 2
   m_EditorClassIdentifier: 
-  UpgradeID: 0
-  Cost: 0
+  UpgradeID: 2
+  Cost: 200
   upgradeType: 0
-  Damage: 2
-  ShieldDamage: 4
+  Damage: 8
+  ShieldDamage: 6
   IsAutomatic: 0
   CanCharge: 0
-  isBurst: 0
+  isBurst: 1
   HitVFX: {fileID: 0}
-  FireRate: 0.8
-  GunPrefab: {fileID: 1085578376819670403, guid: 9ebfc5d98154d614380b95aabc171b41, type: 3}
+  FireRate: 1.5
+  GunPrefab: {fileID: 3929941285987175329, guid: 0194bda46f3e5bb47afc6930aaf96c78, type: 3}
   ThrusterSpeed: 0
   DodgeRechargeRate: 0
   ThrusterPrefab: {fileID: 0}

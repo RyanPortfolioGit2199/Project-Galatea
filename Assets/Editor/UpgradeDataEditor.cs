@@ -26,7 +26,7 @@ public class UpgradeDataEditor : Editor
         typeField.style.marginBottom = 10;
 
         // 4. Create isolated groups for each upgrade type's unique fields
-        VisualElement weaponGroup = CreatePropertyContainer("Damage", "ShieldDamage", "IsAutomatic", "CanCharge", "HitVFX", "FireRate", "GunPrefab");
+        VisualElement weaponGroup = CreatePropertyContainer("Damage", "ShieldDamage", "IsAutomatic", "CanCharge", "HitVFX", "FireRate", "GunPrefab", "isBurst");
         VisualElement thrusterGroup = CreatePropertyContainer("ThrusterSpeed", "DodgeRechargeRate", "ThrusterPrefab", "dodgeAmount");
         VisualElement shieldGroup = CreatePropertyContainer("ShieldAmount", "RechargeRate", "ShieldPrefab");
 

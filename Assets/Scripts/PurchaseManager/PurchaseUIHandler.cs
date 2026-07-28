@@ -1,10 +1,54 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PurchaseUIHandler : MonoBehaviour
 {
     [SerializeField] Button buyButton;
     [SerializeField] Button equipButton;
+    [SerializeField] GameObject buttonGroup;
+
+    [SerializeField] int upgradeScene;
+
+    Scene currentScene;
+    
+
+    private void OnEnable()
+    {
+        // Subscribe to the sceneLoaded event
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        // Always unsubscribe to prevent memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // This runs every single time a scene finishes loading
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartBehaviour();
+    }
+
+    void Start()
+    {
+        StartBehaviour();
+    }
+
+    void StartBehaviour()
+    {
+        currentScene = SceneManager.GetActiveScene();
+
+        if(currentScene.buildIndex == upgradeScene)
+        {
+            buttonGroup.SetActive(true);
+        }
+        else
+        {
+            buttonGroup.SetActive(false);
+        }
+    }
 
 
     void Update()

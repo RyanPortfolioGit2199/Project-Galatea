@@ -18,25 +18,29 @@ public class GunUpgradeMenu : MonoBehaviour
     {
         Debug.Log("Base Gun");
         UpgradeManager.Instance.UpgradeWeapon(0);
-        PurchaseManager.Instance.PurchasingCalculations(weaponSO[0]);
+        PurchaseManager.Instance.PurchasingCalculations(UpgradeManager.Instance.weaponSOList[0]);
     }
 
     public void GunUpgrade1()
     {
         Debug.Log("Gun Upgrade 1");
         UpgradeManager.Instance.UpgradeWeapon(1);
-        PurchaseManager.Instance.PurchasingCalculations(weaponSO[1]);
+        PurchaseManager.Instance.PurchasingCalculations(UpgradeManager.Instance.weaponSOList[1]);
 
     }
 
     public void GunUpgrade2()
     {
         Debug.Log("Gun Upgrade 2");
+        UpgradeManager.Instance.UpgradeWeapon(2);
+        PurchaseManager.Instance.PurchasingCalculations(UpgradeManager.Instance.weaponSOList[2]);
     }
 
     public void GunUpgrade3()
     {
         Debug.Log("Gun Upgrade 3");
+        UpgradeManager.Instance.UpgradeWeapon(3);
+        PurchaseManager.Instance.PurchasingCalculations(UpgradeManager.Instance.weaponSOList[3]);
     }
 
     public void BackToUpgradeMenu()

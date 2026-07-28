@@ -44,10 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2930fe8fbebf88499ade645a11823c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <setPlayerWeapon>k__BackingField: 0
+  <setPlayerShield>k__BackingField: 0
+  <setPlayerThruster>k__BackingField: 0
   playerDebugScene: 1
   <weaponSOList>k__BackingField:
   - {fileID: 11400000, guid: e6414090501b0b24fb509cddc239b45c, type: 2}
   - {fileID: 11400000, guid: 768d0a8aaf2740a4a9a270c57b600af9, type: 2}
+  - {fileID: 11400000, guid: 1975d6d5e4237d9498ccfc848e9209fc, type: 2}
+  - {fileID: 11400000, guid: 3dc7ab26b463dfc4d82e66d51a1f3d87, type: 2}
   <shieldSOList>k__BackingField:
   - {fileID: 11400000, guid: a4d88f71a9cd56341a2e82c7f86024db, type: 2}
   - {fileID: 11400000, guid: 82736698b56d4b944bf4666e78a1b36a, type: 2}

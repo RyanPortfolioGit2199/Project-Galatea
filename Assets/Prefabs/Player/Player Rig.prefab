@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradesSO: {fileID: 11400000, guid: e6414090501b0b24fb509cddc239b45c, type: 2}
+  playerInputScript: {fileID: 1741020032107638048}
   isFiring: 0
 --- !u!1 &5210607488055590927
 GameObject:

@@ -17,6 +17,7 @@ public class UpgradesSO : ScriptableObject
     public int ShieldDamage;
     public bool IsAutomatic = false;
     public bool CanCharge = false;
+    public bool isBurst = false;
     public GameObject HitVFX;
     public float FireRate;
     public GameObject GunPrefab;

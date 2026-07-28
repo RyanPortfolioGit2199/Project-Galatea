@@ -4499,9 +4499,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4335680328503069045}
-        m_TargetAssemblyTypeName: DebugMenuUIHandler, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 7570697985697783188}
+        m_TargetAssemblyTypeName: DebugUpgradeMenu, Assembly-CSharp
+        m_MethodName: GunUpgrade3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
