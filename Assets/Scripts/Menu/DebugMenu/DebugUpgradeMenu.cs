@@ -55,7 +55,6 @@ public class DebugUpgradeMenu : MonoBehaviour
     public void GunUpgrade3()
     {
         Debug.Log("Gun Upgrade 3");
-        activeWeapon.SwitchWeapon(UpgradeManager.Instance.weaponSOList[3]);
     }
 
     // ------------------------------------------------------------------------------------------------

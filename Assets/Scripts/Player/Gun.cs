@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class Gun : MonoBehaviour
 {
@@ -37,28 +36,10 @@ public class Gun : MonoBehaviour
     public void Shoot (UpgradesSO weaponSO)
     {
         if(currentScene.buildIndex == UpgradeScene) return;// makes it sure that the player cant shoot in the Upgrade menu.
-
-
-        if (weaponSO.isBurst)
-        {
-            StartCoroutine(BurstRoutine(3));
-        }
-        else if (!weaponSO.isBurst)
-        {
-            bulletParticle.Play();
-        }
         
         
-    }
-
-
-    private IEnumerator BurstRoutine(int bulletAmount)
-    {
-        for (int i = 0; i < bulletAmount; i++)
-        {
-            bulletParticle.Play();
-            // Adjust the wait time between shots for your desired burst rate (e.g., 0.1 seconds)
-            yield return new WaitForSeconds(0.1f);
-        }
+        bulletParticle.Emit(1);
+        
+        
     }
 }

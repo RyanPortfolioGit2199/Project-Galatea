@@ -1,4 +1,3 @@
-using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,11 +10,6 @@ public class PlayerInputScript : MonoBehaviour
     public bool shoot;
     public bool dodge;
     public bool pause;
-
-    public event Action<InputAction.CallbackContext> OnFireContextChanged;
-
-    // Direct event for when fire button status changes
-    public event Action<bool> OnFireInput;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -39,16 +33,7 @@ public class PlayerInputScript : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        OnFireContextChanged?.Invoke(context);
-
-        if(context.started || context.performed)
-        {
-            OnFireInput?.Invoke(true);
-        }
-        else if(context.canceled)
-        {
-            OnFireInput?.Invoke(false);
-        }
+        shoot = context.ReadValueAsButton();
     }
 
     public void OnDodge(InputAction.CallbackContext context)
