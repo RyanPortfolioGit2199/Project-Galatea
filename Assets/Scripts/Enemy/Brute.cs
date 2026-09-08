@@ -122,16 +122,15 @@ public class Brute : Enemy
 
     protected override void OnRepositionEnter()
     {
-        
         PlayerRange();
-        
         stateNote.text = "Reposition";
         agent.updateRotation = false;
-        Vector3 newDest = EnemyManager.Instance.RepositionLocation();
+
+        // Pass 'transform.position' so repositioning calculates offset relative to active target
+        Vector3 newDest = EnemyManager.Instance.RepositionLocation(transform.position);
         newDest.y = 0;
 
         ObstacleAgent.SetDestination(newDest);
-        
     }
 
     protected override void Reposition()

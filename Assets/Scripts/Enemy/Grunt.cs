@@ -45,28 +45,21 @@ public class Grunt : Enemy
 
     protected override void Chase()
     {
-
         agent.stoppingDistance = playerDistance;
 
-        
-        
-        ObstacleAgent.SetDestination(EnemyManager.Instance.LastKnownPosition);
-        //destinationReached = false;
-           
-
-        //Avoidance();
+        // Get dynamic level target position from EnemyManager
+        Vector3 targetPos = EnemyManager.Instance.GetCurrentTargetPosition(transform.position);
+        ObstacleAgent.SetDestination(targetPos);
 
         if (!EnemyManager.Instance.PlayerDetected)
         {
             brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
-        }
+        }   
 
         if (withinAttackRange)
         {
             brain.PushState(Reposition, OnRepositionEnter, OnRepositionExit);
         }
-
-        
     }
 
     protected override void OnChaseExit()
@@ -92,10 +85,6 @@ public class Grunt : Enemy
     protected override void Patrol()
     {
 
-        
-
-        
-
         if(navObstacle.enabled == true)
         {
             
@@ -114,16 +103,15 @@ public class Grunt : Enemy
 
     protected override void OnRepositionEnter()
     {
-        
         PlayerRange();
-        
         stateNote.text = "Reposition";
         agent.updateRotation = false;
-        Vector3 newDest = EnemyManager.Instance.RepositionLocation();
+
+        // Pass 'transform.position' so repositioning calculates offset relative to active target
+        Vector3 newDest = EnemyManager.Instance.RepositionLocation(transform.position);
         newDest.y = 0;
 
         ObstacleAgent.SetDestination(newDest);
-        
     }
 
     protected override void Reposition()

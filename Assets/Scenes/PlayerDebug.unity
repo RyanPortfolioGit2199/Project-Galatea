@@ -5162,6 +5162,14 @@ PrefabInstance:
       value: SpawnManager
       objectReference: {fileID: 0}
     - target: {fileID: 3170534803469499955, guid: 4de989fd41cbb114d801ad9691c8aba3, type: 3}
+      propertyPath: bruteSpawnChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170534803469499955, guid: 4de989fd41cbb114d801ad9691c8aba3, type: 3}
+      propertyPath: gruntSpawnChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170534803469499955, guid: 4de989fd41cbb114d801ad9691c8aba3, type: 3}
       propertyPath: 'Spawners.Array.data[0]'
       value: 
       objectReference: {fileID: 1249437314}
