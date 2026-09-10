@@ -46,7 +46,7 @@ public class Grunt : Enemy
     protected override void Chase()
     {
         agent.stoppingDistance = playerDistance;
-
+        AimAtPlayer();
         // Get dynamic level target position from EnemyManager
         Vector3 targetPos = EnemyManager.Instance.GetCurrentTargetPosition(transform.position);
         ObstacleAgent.SetDestination(targetPos);

@@ -29,11 +29,14 @@ public class LevelDebugTrigger : MonoBehaviour
     {
         levelManager = FindAnyObjectByType<LevelManager>();
     }
-
+    void Awake()
+    {
+        //StartOfScene();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnParticleCollision(GameObject other)
     {
-        levelManager.DebugLevelTrigger(levelNumber);
+        LevelManager.Instance.DebugLevelTrigger(levelNumber);
         this.gameObject.SetActive(false);
     }
 }

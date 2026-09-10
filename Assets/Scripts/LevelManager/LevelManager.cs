@@ -68,6 +68,9 @@ public static LevelManager Instance {get; private set;}
                 break;
             case Level2:
             // Instantiate the Level objective gameobject from the array
+                Instantiate(levelObjectives[1]);
+                Debug.Log("Level 2 Objective Loaded!");
+                GameManager.Instance.TriggerEnemySpawning();
                 break;
             case Level3:
             // Instantiate the Level objective gameobject from the array

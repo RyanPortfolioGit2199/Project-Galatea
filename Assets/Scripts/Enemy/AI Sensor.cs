@@ -19,9 +19,9 @@ public class AISensor : MonoBehaviour
     [SerializeField] LayerMask playerLayers;
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] LayerMask occlusionLayer;
-    public Vector3 PlayersLocation {get; private set;}
+    public Vector3 PlayersLocation;
     public Vector3 EnemyLocation{get; private set;}
-    public bool PlayerInSight{get; private set;}
+    public bool PlayerInSight;
 
     public bool fleeAway{get; private set;}
 
@@ -29,9 +29,9 @@ public class AISensor : MonoBehaviour
     private NavMeshHit obstacleHit;
     NavMeshAgent agent;
     [SerializeField] float maxDistance;
-    int playerCount;
+    [SerializeField]int playerCount;
     int enemyCount;
-    Collider[] playerCollider = new Collider[2];
+    public Collider[] playerCollider = new Collider[20];
     Collider[] enemyColliders = new Collider[10];
 
 
@@ -180,12 +180,39 @@ public class AISensor : MonoBehaviour
                 GetPlayerLocation();
                 EnemyManager.Instance.ReportPlayerLocation(PlayersLocation);
                 PlayerInSight = true;
+                Debug.Log("Enemy says: Player is in Sight");
             }
         }
     }
 
     public bool InSight(GameObject obj)
-    {
+    { 
+        Vector3 origin = transform.position + (Vector3.up * (height / 2f));
+    
+        // Linecast directly to the object's transform position or collider center
+        Vector3 dest = obj.transform.position; 
+    
+        if (obj.TryGetComponent<Collider>(out Collider col))
+        {
+            dest = col.bounds.center; // Target the center of the ship's physical collider
+        }
+
+        Vector3 direction = dest - origin;
+
+        // Check vertical threshold
+        if (direction.y < -height || direction.y > height) return false;
+
+        // Angle check on the horizontal plane
+        Vector3 flatDirection = new Vector3(direction.x, 0, direction.z);
+        float deltaAngle = Vector3.Angle(flatDirection, transform.forward);
+        if (deltaAngle > angle) return false;
+
+        // Check if line of sight is blocked by occlusion layer
+        if (Physics.Linecast(origin, dest, occlusionLayer)) return false;
+
+        return true;
+        
+        /* Old code
         Vector3 origin = transform.position;
         Vector3 dest = obj.transform.position;
         Vector3 direction = dest - origin;
@@ -201,6 +228,7 @@ public class AISensor : MonoBehaviour
         if(Physics.Linecast(origin, dest, occlusionLayer)){return false;}
 
         return true;
+        */
     }
 
     private Vector3 GetPlayerLocation()
