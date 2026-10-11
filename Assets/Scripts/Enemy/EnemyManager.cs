@@ -8,13 +8,20 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Instance;
 
     [Header("Detection & Tracking")]
-    public Vector3 LastKnownPosition;
+    public Vector3 PlayerLastKnownPosition;
+    public Vector3 TransportShipLastKnownPosition;
     public bool PlayerDetected;
     [SerializeField] private float Radius = 10f;
 
     [Header("Level 2 Protection Objective")]
     [SerializeField] private Transform protectedObjective;
-    [SerializeField] private bool hasProtectedObjective;
+    public bool hasProtectedObjective;
+
+    [Tooltip("Maximum number of enemies allowed to target the Transport Ship at once.")]
+    [SerializeField] private int maxShipAttackers = 3;
+    
+    // Tracks which enemies are currently targeting the ship
+    public HashSet<Enemy> shipAttackers = new HashSet<Enemy>();
 
     [Header("Active Level Enemies")]
     [SerializeField] private List<GameObject> EnemiesInLevel = new List<GameObject>();
@@ -54,6 +61,7 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         PlayerInSightCheck();
+        
     }
 
     /// <summary>
@@ -75,7 +83,7 @@ public class EnemyManager : MonoBehaviour
         if (playerObj != null)
         {
             playerTransform = playerObj.transform;
-            LastKnownPosition = playerTransform.position;
+            PlayerLastKnownPosition = playerTransform.position;
         }
 
         // 3. Auto-detect if Level 2 Protected Objective exists in scene
@@ -95,36 +103,65 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// Core method for enemies to request their primary destination target based on the active level.
     /// </summary>
-    public Vector3 GetCurrentTargetPosition(Vector3 enemyPosition)
+    public Vector3 GetCurrentTargetPosition(Enemy requestingEnemy)
     {
-        // Level 1 Behavior: No objective present -> Always return LastKnownPosition/Player
+        Vector3 enemyPos = requestingEnemy.transform.position;
         if (!hasProtectedObjective || protectedObjective == null)
         {
-            return LastKnownPosition;
+            ReleaseShipSlot(requestingEnemy);
+            return PlayerLastKnownPosition;
         }
 
-        // Level 2 Behavior: Evaluate distance between Player and Objective
+        // Level 2: Evaluate target choice
         if (playerTransform == null) return protectedObjective.position;
 
-        float distToPlayer = Vector3.Distance(enemyPosition, playerTransform.position);
-        float distToObjective = Vector3.Distance(enemyPosition, protectedObjective.position);
+        float distToPlayer = Vector3.Distance(enemyPos, PlayerLastKnownPosition);
+        float distToObjective = Vector3.Distance(enemyPos, protectedObjective.position);
 
-        // Target whichever is closer (or add custom priority weighting here)
-        return (distToObjective < distToPlayer) ? protectedObjective.position : LastKnownPosition;
+        // Check if this enemy is ALREADY registered as attacking the ship
+        bool isAlreadyAttackingShip = shipAttackers.Contains(requestingEnemy);
+
+        //Case A: Enemy wants to target ship because it is closer to the ship than the player
+        if(distToObjective <= distToPlayer)
+        {
+            //if enemy is already assigned a slot OR if there is an available slot:
+            if (isAlreadyAttackingShip || shipAttackers.Count < maxShipAttackers)
+            {
+                shipAttackers.Add(requestingEnemy); // Claim slot
+                return protectedObjective.position;
+            }
+        }
+
+        // Case B: Ship slots are FULL or enemy is closer to the Player
+        ReleaseShipSlot(requestingEnemy); // Free Up slot if it previously had one
+        Debug.Log("Transport Ship is full moving to player");
+        return PlayerLastKnownPosition;
+    }
+
+    /// <summary>
+    /// Call this when an enemy dies or stops attacking the ship to free up a slot.
+    /// </summary>
+    public void ReleaseShipSlot(Enemy enemy)
+    {
+        if (shipAttackers.Contains(enemy))
+        {
+            shipAttackers.Remove(enemy);
+        }
     }
 
     public void ReportPlayerLocation(Vector3 position)
     {
         PlayerDetected = true;
-        LastKnownPosition = position;
+        PlayerLastKnownPosition = position;
+        Debug.Log("Player Detected");
     }
 
     /// <summary>
     /// Calculates a reposition point relative to the active target position.
     /// </summary>
-    public Vector3 RepositionLocation(Vector3 enemyPosition)
+    public Vector3 RepositionLocation(Enemy requestingEnemy)
     {
-        Vector3 targetPos = GetCurrentTargetPosition(enemyPosition);
+        Vector3 targetPos = GetCurrentTargetPosition(requestingEnemy);
         Vector3 newTargetPosition = targetPos + Random.insideUnitSphere * Radius;
         return newTargetPosition;
     }

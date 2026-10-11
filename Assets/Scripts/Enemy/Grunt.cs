@@ -48,12 +48,13 @@ public class Grunt : Enemy
         agent.stoppingDistance = playerDistance;
         AimAtPlayer();
         // Get dynamic level target position from EnemyManager
-        Vector3 targetPos = EnemyManager.Instance.GetCurrentTargetPosition(transform.position);
-        ObstacleAgent.SetDestination(targetPos);
+        
+        ObstacleAgent.SetDestination(activeTargetPosition);
 
-        if (!EnemyManager.Instance.PlayerDetected)
+        if (!EnemyManager.Instance.PlayerDetected && !EnemyManager.Instance.hasProtectedObjective)
         {
             brain.PushState(Patrol, OnPatrolEnter, OnPatrolExit);
+            return;
         }   
 
         if (withinAttackRange)
@@ -107,8 +108,8 @@ public class Grunt : Enemy
         stateNote.text = "Reposition";
         agent.updateRotation = false;
 
-        // Pass 'transform.position' so repositioning calculates offset relative to active target
-        Vector3 newDest = EnemyManager.Instance.RepositionLocation(transform.position);
+        // Pass 'this' so repositioning calculates offset relative to active target
+        Vector3 newDest = EnemyManager.Instance.RepositionLocation(this);
         newDest.y = 0;
 
         ObstacleAgent.SetDestination(newDest);

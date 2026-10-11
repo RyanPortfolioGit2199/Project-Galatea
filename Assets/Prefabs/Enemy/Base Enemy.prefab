@@ -117,12 +117,28 @@ PrefabInstance:
       value: 0.34117648
       objectReference: {fileID: 0}
     - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: playerCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: showAISensor
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: PlayerInSight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: Player.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: PlayersLocation.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: PlayersLocation.z
+      value: 34.14
       objectReference: {fileID: 0}
     - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: 'Player.Array.data[0]'
@@ -131,6 +147,14 @@ PrefabInstance:
     - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: occlusionLayer.m_Bits
       value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: 'playerCollider.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677221127782808968, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
+      propertyPath: 'playerCollider.Array.data[1]'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5965111944801733621, guid: ed5f6b9dbcfd0fb448754b62abbbf098, type: 3}
       propertyPath: m_Layer
@@ -4145,7 +4169,7 @@ ParticleSystem:
       serializedVersion: 2
       m_Bits: 4294967295
     maxCollisionShapes: 256
-    quality: 1
+    quality: 0
     voxelSize: 0.5
     collisionMessages: 1
     collidesWithDynamic: 1

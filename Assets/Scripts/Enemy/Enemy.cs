@@ -33,6 +33,11 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float fleeDistance;
 
     
+    [Header("Target Lock Settings")]
+    [SerializeField] protected float targetReevaluateInterval = 2f;
+    protected float targetLockTimer;
+    protected Vector3 activeTargetPosition;
+
     protected bool destinationReached = true;
 
     protected Vector3 destination;
@@ -65,10 +70,18 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        
+        targetLockTimer -= Time.deltaTime;
+
+        // Only re-evaluate target choice when the timer expires
+        if (targetLockTimer <= 0f)
+        {
+            // Pass 'this' so EnemyManager knows WHICH enemy is asking for a slot
+            activeTargetPosition = EnemyManager.Instance.GetCurrentTargetPosition(this);
+            targetLockTimer = targetReevaluateInterval; // Lock target for 2 seconds
+        }
         
 
-        withinAttackRange = Vector3.Distance(this.transform.position, EnemyManager.Instance.LastKnownPosition) < playerDistance;
+        withinAttackRange = Vector3.Distance(this.transform.position, activeTargetPosition) < playerDistance;
     }
 
     protected virtual void OnDrawGizmos()
@@ -88,12 +101,17 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void AimAtPlayer()
     {
-        Quaternion rotation = Quaternion.LookRotation(EnemyManager.Instance.LastKnownPosition - transform.position);
-        rotation.x = 0f;
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
+        // Aim at activeTargetPosition instead of hardcoded LastKnownPosition
+        Vector3 targetDir = activeTargetPosition - transform.position;
+        targetDir.y = 0;
+        if (targetDir != Vector3.zero)
+        {
+            Quaternion rotation = Quaternion.LookRotation(targetDir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
+        }
     }
 
-    protected virtual void ValidatePath(Vector3 Position)
+    protected virtual void ValidatePath(Vector3 Position)//get rid of this later
     {
         if (destinationReached || agent.pathPending) return;
 

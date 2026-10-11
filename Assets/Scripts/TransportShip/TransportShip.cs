@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Splines;
 
 public class TransportShip : MonoBehaviour
 {
@@ -7,13 +8,20 @@ public class TransportShip : MonoBehaviour
     StateMachine brain;
     NavMeshAgent agent;
     TransportSensor sensor;
-    Rigidbody shipRb;
 
+
+    [SerializeField] SplineContainer splineContainer;
+    [SerializeField] private bool loopPath = true;
+    [SerializeField] private float arrivalDistance = 1.0f;
     [SerializeField] GameObject targetDestination;
     [SerializeField] private float speedReductionPerObject = 1.5f;
     [SerializeField] private float minSpeed = 1f;
     [SerializeField] private float maxSpeed = 6f;
     float targetSpeed;
+    float progress = 0f;
+    float splineLength;
+    Vector3 localPos;
+    Vector3 worldPos;
 
     void Awake()
     {
@@ -21,7 +29,12 @@ public class TransportShip : MonoBehaviour
         ObstacleAgent = GetComponent<ObstacleAgent>();
         sensor = GetComponent<TransportSensor>();
         agent = GetComponent<NavMeshAgent>();
-        shipRb = GetComponent<Rigidbody>();
+
+        if(splineContainer != null)
+        {
+            splineLength = splineContainer.CalculateLength();
+        }
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,12 +61,34 @@ public class TransportShip : MonoBehaviour
     }
     void OnTraveling()
     {
-        ObstacleAgent.SetDestination(targetDestination.transform.position);
+        //ObstacleAgent.SetDestination(targetDestination.transform.position);
+        AdvanceTargetPosition();
     }
 
     void OnTravelingExit()
     {
         
+    }
+
+    void AdvanceTargetPosition()
+    {
+        progress += (arrivalDistance / splineLength);
+
+        if (progress >= 1f)
+        {
+            if(loopPath)
+                progress %= 1f;
+            else
+                return;
+        }
+        MoveToNextSplineTarget();
+    }
+
+    void MoveToNextSplineTarget()
+    {
+        localPos = splineContainer.EvaluatePosition(progress);
+        worldPos = splineContainer.transform.TransformPoint(localPos);
+        ObstacleAgent.SetDestination(worldPos);
     }
 
     void SpeedController()

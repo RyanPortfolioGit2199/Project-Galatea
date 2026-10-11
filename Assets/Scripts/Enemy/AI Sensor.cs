@@ -14,6 +14,7 @@ public class AISensor : MonoBehaviour
     float scanInterval;
     float scanTimer;
     [SerializeField] List<GameObject> Player = new List<GameObject>();
+    [SerializeField] List<GameObject> Transport = new List<GameObject>();
     public List<GameObject> Enemies = new List<GameObject>();
     
     [SerializeField] LayerMask playerLayers;
@@ -21,6 +22,7 @@ public class AISensor : MonoBehaviour
     [SerializeField] LayerMask occlusionLayer;
     public Vector3 PlayersLocation;
     public Vector3 EnemyLocation{get; private set;}
+    public Vector3 TransportLocation{get; private set;}
     public bool PlayerInSight;
 
     public bool fleeAway{get; private set;}
@@ -166,6 +168,8 @@ public class AISensor : MonoBehaviour
         return mesh;
     }
 
+
+    // Scans for specific object for the 
     private void Scan()
     {
         playerCount = Physics.OverlapSphereNonAlloc(transform.position, distance, playerCollider, playerLayers, QueryTriggerInteraction.Collide);
@@ -174,13 +178,31 @@ public class AISensor : MonoBehaviour
         for(int i = 0; i < playerCount; ++i)
         {
             GameObject obj = playerCollider[i].gameObject;
+
+            //Scanner field of view check
             if (InSight(obj))
             {
-                Player.Add(obj);
-                GetPlayerLocation();
-                EnemyManager.Instance.ReportPlayerLocation(PlayersLocation);
-                PlayerInSight = true;
-                Debug.Log("Enemy says: Player is in Sight");
+
+                
+
+                
+                if (obj.CompareTag("Player"))
+                {
+                    Player.Add(obj);
+                    GetPlayerLocation();
+                    EnemyManager.Instance.ReportPlayerLocation(PlayersLocation);
+                    PlayerInSight = true;
+                    Debug.Log("Enemy says: Player is in Sight");
+                }
+                else if (obj.CompareTag("ProtectedTarget"))//might not need this since
+                {
+                    Player.Add(obj);
+                    PlayerInSight = true;
+
+                    Debug.Log("Enemy says: Transport Ship is in Sight");
+                }
+
+                
             }
         }
     }
@@ -239,6 +261,16 @@ public class AISensor : MonoBehaviour
         }
 
         return PlayersLocation;
+    }
+    
+    private Vector3 GetTransportLocation()
+    {
+        if (Transport.Count > 0)
+        {
+            TransportLocation = Transport[0].transform.position;
+        }
+
+        return TransportLocation;
     }
 
     private void EnemyScan()

@@ -50,7 +50,7 @@ protected override void OnIdleEnter()
 
         
         
-        ObstacleAgent.SetDestination(EnemyManager.Instance.LastKnownPosition);
+        ObstacleAgent.SetDestination(EnemyManager.Instance.PlayerLastKnownPosition);
         //destinationReached = false;
            
 
@@ -119,7 +119,7 @@ protected override void OnIdleEnter()
         agent.updateRotation = false;
 
         // Pass 'transform.position' so repositioning calculates offset relative to active target
-        Vector3 newDest = EnemyManager.Instance.RepositionLocation(transform.position);
+        Vector3 newDest = EnemyManager.Instance.RepositionLocation(this);
         newDest.y = 0;
 
         ObstacleAgent.SetDestination(newDest);
